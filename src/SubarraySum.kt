@@ -26,10 +26,4 @@ class SubarraySum {
         return null
     }
 
-    fun main() {
-        val arr = intArrayOf(1, 3, 2, 5, 1, 1, 2, 3)
-        val x = algorithm(arr, 8)
-        println(x)
-        println(arr.copyOfRange(x!!.first, x.second).joinToString())
-    }
 }

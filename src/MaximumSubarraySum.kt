@@ -37,6 +37,6 @@ class MaximumSubarraySum {
             sum = if (temp1.first > temp2.first) temp1 else temp2
             best = if (best.first > sum.first) best else sum
         }
-        return best;
+        return best
     }
 }

@@ -12,6 +12,14 @@ class TwoSum {
     /*
     array should be sorted
      */
+    fun unsortedAlgorithm(array: IntArray, x: Int): Pair<Int, Int>? {
+        val arr=array.clone()
+        arr.sort()
+        return algorithm(arr,x)
+    }
+    /*
+    array should be sorted
+     */
     fun algorithm(array: IntArray, x: Int): Pair<Int, Int>? {
         var i = 0
         var j = array.size-1
@@ -33,10 +41,4 @@ class TwoSum {
         }
         return null
     }
-}
-
-fun main() {
-    val c=TwoSum()
-    val arr= intArrayOf(1,4,5,6,7,9,9,10)
-    println(c.algorithm(arr,12))
 }
