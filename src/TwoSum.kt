@@ -1,0 +1,42 @@
+/***
+ * given an array of n numbers and a
+target sum x , find two array values such that their sum is x , or report that no
+such values exist.
+ */
+/***
+ *  we are given an array of n positive
+integers and a target sum x , and we want to find a subarray whose sum is x or
+report that there is no such subarray
+ */
+class TwoSum {
+    /*
+    array should be sorted
+     */
+    fun algorithm(array: IntArray, x: Int): Pair<Int, Int>? {
+        var i = 0
+        var j = array.size-1
+        var sum = array[i]+array[j]
+        while (j != i) {
+            sum = when {
+                sum > x -> {
+                    j--
+                    array[i]+array[j]
+                }
+                sum < x -> {
+                    i++
+                    array[i]+array[j]
+                }
+                else -> {
+                    return Pair(i, j)
+                }
+            }
+        }
+        return null
+    }
+}
+
+fun main() {
+    val c=TwoSum()
+    val arr= intArrayOf(1,4,5,6,7,9,9,10)
+    println(c.algorithm(arr,12))
+}
