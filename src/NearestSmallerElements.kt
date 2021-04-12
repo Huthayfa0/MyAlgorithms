@@ -9,6 +9,7 @@ class NearestSmallerElements {
     /**
      * return array of Pairs if there is no nearest previous smaller elements it will be null
      * else it will contain the
+     * O(n)
      */
     fun algorithm(array: IntArray):Array<Pair<Int,Int>?>{
         val ans=Array<Pair<Int,Int>?>(array.size){null}
