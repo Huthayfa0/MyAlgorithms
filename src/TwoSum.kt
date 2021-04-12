@@ -9,16 +9,17 @@ integers and a target sum x , and we want to find a subarray whose sum is x or
 report that there is no such subarray
  */
 class TwoSum {
-    /*
-    array should be sorted
+    /**
+     * O(nlog n)
      */
     fun unsortedAlgorithm(array: IntArray, x: Int): Pair<Int, Int>? {
         val arr=array.clone()
         arr.sort()
         return algorithm(arr,x)
     }
-    /*
+    /**
     array should be sorted
+     O(n)
      */
     fun algorithm(array: IntArray, x: Int): Pair<Int, Int>? {
         var i = 0
