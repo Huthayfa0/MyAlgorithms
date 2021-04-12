@@ -36,8 +36,3 @@ fun algorithm(array: IntArray,slidingWindowSize:Int):IntArray{
     return ans
 }
 }
-
-fun main() {
-    val arr= intArrayOf(1,3,4,-1,5,2,10,4,2)
-    println(SlidingWindowMinimum().algorithm(arr,4).joinToString())
-}
