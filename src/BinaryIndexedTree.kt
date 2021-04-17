@@ -7,20 +7,20 @@ class BinaryIndexedTree(var array: IntArray) {
     private val sumIndexedTree=IntArray(array.size+1)
 
     init {
-        sumIndexedTree[0]=0
         for (k in 1 until sumIndexedTree.size){
-            var x=k-1
-            sumIndexedTree[k]=array[x]
-            while (x>0){
-                x-=(x and (-x))
-                sumIndexedTree[k]+=sumIndexedTree[x]
-            }
+            sumIndexedTree[k]+=array[k-1]
+            val x=(k and (-k))+k
+            if (x<sumIndexedTree.size)
+                sumIndexedTree[x]+=sumIndexedTree[k]
         }
     }
+
     fun update(index:Int,x:Int){
+
         if (array.size>index&&index>=0){
-            var k=index
+            var k=index+1
             val v=x-array[index]
+            array[index]=x
             while (k <= array.size) {
                 sumIndexedTree[k] += v
                 k += k and -k
