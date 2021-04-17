@@ -31,7 +31,7 @@ class SegmentTree(var array: IntArray) {
             end<start->0
             else-> {
                 var s =start+ array.size
-                 var e =end+ array.size
+                var e =end+ array.size
                 var ans = Int.MAX_VALUE
                 while (s <= e) {
                     if (s % 2 == 1) ans = minI(ans,minTree[s++])
@@ -53,7 +53,7 @@ class SegmentTree(var array: IntArray) {
             maxTree[i]=maxI(maxTree[i*2],maxTree[i*2+1])
         }
     }
-    //O(ln n)
+
     fun max(start: Int = 0, end: Int = array.size-1): Int {
         if (!maxReady) maxEvaluate()
 
