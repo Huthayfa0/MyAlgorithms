@@ -26,7 +26,7 @@ class StaticArrayQueries(val array:IntArray) {
             end>array.size->sum(start=start)
             end<=start->0
             start==0->sumArray[end-1]
-            else->sumArray[end-1]-sumArray[start]
+            else->sumArray[end-1]-sumArray[start-1]
         }
     }
     //O(nln n)
@@ -52,7 +52,7 @@ class StaticArrayQueries(val array:IntArray) {
             start<0&&end>=array.size->min()
             start<0->min(end=end)
             end>=array.size->min(start=start)
-            end<=start->0
+            end<start->0
             else-> minI(minList[c][start],minList[c][end-w])
         }
     }
@@ -79,7 +79,7 @@ class StaticArrayQueries(val array:IntArray) {
             start<0&&end>=array.size->max()
             start<0->max(end=end)
             end>=array.size->max(start=start)
-            end<=start->0
+            end<start->0
             else-> maxI(maxList[c][start],maxList[c][end-w])
         }
     }
