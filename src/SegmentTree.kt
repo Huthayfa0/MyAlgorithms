@@ -9,16 +9,28 @@ needed for processing range queries.
 class SegmentTree(var array: IntArray) {
     private var minReady = false
     private var maxReady = false
-    private val minTree= IntArray(array.size*2)
-    private val maxTree= IntArray(array.size*2)
+    private lateinit var minTree:IntArray
+    private lateinit var maxTree:IntArray
+    private var halfSize=0
+    init {
+        var x=array.size
+        x--
+        x=x or (x shr 1)
+        x=x or (x shr 2)
+        x=x or (x shr 4)
+        x=x or (x shr 8)
+        x=x or (x shr 16)
+        x++
+        halfSize=x
 
-    //O(n)
+    }
     private fun minEvaluate() {
-        for (i in array.size until minTree.size){
-            minTree[i]=array[i-array.size]
+        minTree=IntArray(halfSize*2)
+        for (i in array.indices){
+            minTree[i+halfSize]=array[i]
         }
-        for (i in array.size-1 downTo 0){
-            minTree[i]=minI(minTree[i*2],minTree[i*2+1])
+        for (i in halfSize-1 downTo 0){
+            minTree[i]=maxI(maxTree[i*2],minTree[i*2+1])
         }
     }
     fun min(start: Int = 0, end: Int = array.size): Int {
@@ -30,26 +42,27 @@ class SegmentTree(var array: IntArray) {
             end>=array.size->min(start=start)
             end<start->0
             else-> {
-                var s =start+ array.size
-                var e =end+ array.size
+                var l =start+ halfSize
+                var r =end+ halfSize
                 var ans = Int.MAX_VALUE
-                while (s <= e) {
-                    if (s % 2 == 1) ans = minI(ans,minTree[s++])
-                    if (e % 2 == 0) ans = minI(ans,minTree[e--])
-                    s /= 2
-                    e /= 2
+                while (l <= r) {
+                    if (l % 2 == 1) ans = minI(ans,minTree[l++])
+                    if (r % 2 == 0) ans = minI(ans,minTree[r--])
+                    l /= 2
+                    r /= 2
                 }
-                return s
+                return l
             }
         }
     }
     //O(nln n)
     //TODO improve to O(n)
     private fun maxEvaluate() {
-        for (i in array.size until minTree.size){
-            maxTree[i]=array[i-array.size]
+        maxTree=IntArray(halfSize*2)
+        for (i in array.indices){
+            maxTree[i+halfSize]=array[i]
         }
-        for (i in array.size-1 downTo 0){
+        for (i in halfSize-1 downTo 0){
             maxTree[i]=maxI(maxTree[i*2],maxTree[i*2+1])
         }
     }
@@ -63,16 +76,16 @@ class SegmentTree(var array: IntArray) {
             end>=array.size->max(start=start)
             end<start->0
             else->{
-                var s =start+ array.size
-                var e =end+ array.size
+                var l =start+ halfSize
+                var r =end+ halfSize
                 var ans = Int.MIN_VALUE
-                while (s <= e) {
-                    if (s % 2 == 1) ans = maxI(ans,maxTree[s++])
-                    if (e % 2 == 0) ans = maxI(ans,maxTree[e--])
-                    s /= 2
-                    e /= 2
+                while (l <= r) {
+                    if (l % 2 == 1) ans = maxI(ans,maxTree[l++])
+                    if (r % 2 == 0) ans = maxI(ans,maxTree[r--])
+                    l /= 2
+                    r /= 2
                 }
-                return s
+                return ans
             }
         }
     }
