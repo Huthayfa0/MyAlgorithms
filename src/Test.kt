@@ -1,4 +1,3 @@
-import kotlin.math.log2
 
 fun main() {
 
