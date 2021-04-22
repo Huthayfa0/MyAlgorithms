@@ -48,8 +48,8 @@ class SegmentTree(var array: IntArray) {
                 while (l <= r) {
                     if (l and 1== 1) ans = minI(ans,minTree[l++])
                     if (r and 1== 0) ans = minI(ans,minTree[r--])
-                    l = l shl 1
-                    r = r shl 1
+                    l = l shr 1
+                    r = r shr 1
                 }
                 return l
             }
@@ -83,8 +83,8 @@ class SegmentTree(var array: IntArray) {
                     //l and 1 is same as l mod 2
                     if (l and 1 == 1) ans = maxI(ans,maxTree[l++])
                     if (r and 1 == 0) ans = maxI(ans,maxTree[r--])
-                    l = l shl 1
-                    r = r shl 1
+                    l = l shr 1
+                    r = r shr 1
                 }
                 return ans
             }
@@ -95,10 +95,10 @@ class SegmentTree(var array: IntArray) {
             if (maxReady) {
                 var index=k+halfSize
                 maxTree[index]=x
-                index=index shl 1
+                index=index shr 1
                 while (maxTree[index]<x){
                     maxTree[index]=x
-                    index=index shl 1
+                    index=index shr 1
                     if (index==0)break
                 }
             }
@@ -107,10 +107,10 @@ class SegmentTree(var array: IntArray) {
             if (minReady) {
                 var index=k+halfSize
                 minTree[index]=x
-                index=index shl 1
+                index=index shr 1
                 while (minTree[index]>x){
                     minTree[index]=x
-                    index=index shl 1
+                    index=index shr 1
                     if (index==0)break
                 }
             }
