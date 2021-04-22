@@ -100,7 +100,6 @@ class SegmentTree(var array: IntArray) {
                     maxTree[index]=x
                     index=index shl 1
                 }
-
             }
             array[k]=x
         }else if (x<array[k]){
