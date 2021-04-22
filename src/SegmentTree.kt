@@ -46,10 +46,10 @@ class SegmentTree(var array: IntArray) {
                 var r =end+ halfSize
                 var ans = Int.MAX_VALUE
                 while (l <= r) {
-                    if (l % 2 == 1) ans = minI(ans,minTree[l++])
-                    if (r % 2 == 0) ans = minI(ans,minTree[r--])
-                    l /= 2
-                    r /= 2
+                    if (l and 1== 1) ans = minI(ans,minTree[l++])
+                    if (r and 1== 0) ans = minI(ans,minTree[r--])
+                    l = l shl 1
+                    r = r shl 1
                 }
                 return l
             }
@@ -80,13 +80,40 @@ class SegmentTree(var array: IntArray) {
                 var r =end+ halfSize
                 var ans = Int.MIN_VALUE
                 while (l <= r) {
-                    if (l % 2 == 1) ans = maxI(ans,maxTree[l++])
-                    if (r % 2 == 0) ans = maxI(ans,maxTree[r--])
-                    l /= 2
-                    r /= 2
+                    //l and 1 is same as l mod 2
+                    if (l and 1 == 1) ans = maxI(ans,maxTree[l++])
+                    if (r and 1 == 0) ans = maxI(ans,maxTree[r--])
+                    l = l shl 1
+                    r = r shl 1
                 }
                 return ans
             }
         }
+    }
+    fun update(k:Int,x:Int){
+        if (x>array[k]) {
+            if (maxReady) {
+                var index=k+halfSize
+                maxTree[index]=x
+                index=index shl 1
+                while (maxTree[index]<x){
+                    maxTree[index]=x
+                    index=index shl 1
+                }
+            }
+            array[k]=x
+        }else if (x<array[k]){
+            if (minReady) {
+                var index=k+halfSize
+                minTree[index]=x
+                index=index shl 1
+                while (minTree[index]>x){
+                    minTree[index]=x
+                    index=index shl 1
+                }
+            }
+            array[k]=x
+        }
+
     }
 }
