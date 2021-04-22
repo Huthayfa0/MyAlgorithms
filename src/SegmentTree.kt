@@ -111,7 +111,7 @@ class SegmentTree(var array: IntArray) {
                 while (minTree[index]>x){
                     minTree[index]=x
                     index=index shl 1
-                    if(index==0)break
+                    if (index==0)break
                 }
             }
             array[k]=x
