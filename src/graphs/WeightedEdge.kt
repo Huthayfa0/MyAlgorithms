@@ -1,7 +1,8 @@
 package graphs
 
-class WeightedEdge(u: Int, v: Int,var weight: Double
-    ) : Edge(u, v),
+class WeightedEdge(
+    u: Int, v: Int, var weight: Double
+) : Edge(u, v),
     Comparable<WeightedEdge?> {
     /** Compare two edges on weights  */
     override fun compareTo(other: WeightedEdge?): Int {

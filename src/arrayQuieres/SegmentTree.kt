@@ -1,3 +1,5 @@
+package arrayQuieres
+
 import kotlin.math.max as maxI
 import kotlin.math.min as minI
 

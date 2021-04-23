@@ -1,3 +1,5 @@
+package arrayQuieres
+
 /**
  * binary indexed tree or a Fenwick tree 2 can be seen as a dynamic variant
 of a prefix sum array. It supports two O (log n ) time operations on an array:

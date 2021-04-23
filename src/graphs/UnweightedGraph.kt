@@ -57,14 +57,14 @@ open class UnweightedGraph<V> : Graph<V> {
     }
 
     /** Return the number of vertices in the graph  */
-    override val size: Int= vertices.size
+    override val size: Int = vertices.size
 
 
     /** Return the object for the specified vertex  */
-    override fun getVertex(index: Int)=vertices[index]
+    override fun getVertex(index: Int) = vertices[index]
 
     /** Return the index for the specified vertex object  */
-    override fun getIndex(v: V)=vertices.indexOf(v)
+    override fun getIndex(v: V) = vertices.indexOf(v)
 
     /** Return the neighbors of the specified vertex  */
     override fun getNeighbors(index: Int): List<Int?> {
@@ -77,12 +77,11 @@ open class UnweightedGraph<V> : Graph<V> {
     override fun getDegree(v: Int): Int = neighbors[v].size
 
     /** Print the edges  */
-    override fun printEdges() = println(neighbors.indices.joinToString(separator = "\n"){
-        "${getVertex(it)} ($it): " + neighbors[it].joinToString(separator = " ",prefix = "(",postfix = ")"){
-                           e-> getVertex(e.u).toString() + ", " + getVertex(e.v).toString()
-                   }
-        })
-
+    override fun printEdges() = println(neighbors.indices.joinToString(separator = "\n") {
+        "${getVertex(it)} ($it): " + neighbors[it].joinToString(separator = " ", prefix = "(", postfix = ")") { e ->
+            getVertex(e.u).toString() + ", " + getVertex(e.v).toString()
+        }
+    })
 
 
     /** Clear the graph  */
@@ -118,11 +117,11 @@ open class UnweightedGraph<V> : Graph<V> {
 
     /** Remove vertex v and return true if successful  */
     override fun remove(v: V): Boolean {
-        val index=vertices.indexOf(v)
-        if (index!=-1) {
+        val index = vertices.indexOf(v)
+        if (index != -1) {
             vertices.removeAt(index)
             neighbors.removeAt(index)
-            neighbors.forEach { it.removeIf { edge->edge.v==index } }
+            neighbors.forEach { it.removeIf { edge -> edge.v == index } }
             return true
         }
         return false
@@ -133,11 +132,12 @@ open class UnweightedGraph<V> : Graph<V> {
         if (u < 0 || u > size - 1) throw IllegalArgumentException("No such index: $u")
         return neighbors[u].remove(Edge(u, v))
     }
+
     /** Obtain a DFS tree starting from vertex u  */
 
     override fun dfs(v: Int): SearchTree {
-        val searchOrder= ArrayList<Int>()
-        val parent = IntArray(vertices.size){-1}
+        val searchOrder = ArrayList<Int>()
+        val parent = IntArray(vertices.size) { -1 }
 
         // Mark visited vertices
         val isVisited = BooleanArray(vertices.size)
@@ -150,21 +150,22 @@ open class UnweightedGraph<V> : Graph<V> {
     }
 
     /** Recursive method for DFS search  */
-    private fun dfs(v: Int, parent: IntArray, searchOrder: MutableList<Int>,isVisited: BooleanArray) {
+    private fun dfs(v: Int, parent: IntArray, searchOrder: MutableList<Int>, isVisited: BooleanArray) {
         // Store the visited vertex
         searchOrder.add(v)
         isVisited[v] = true // Vertex v visited
-        neighbors[v].forEach{e-> // Note that e.u is v
+        neighbors[v].forEach { e -> // Note that e.u is v
             if (!isVisited[e.v]) { // e.v is w in Listing 28.8
                 parent[e.v] = v // The parent of w is v
                 dfs(e.v, parent, searchOrder, isVisited) // Recursive search
             }
         }
     }
+
     /** Starting bfs search from vertex v  */
     override fun bfs(v: Int): SearchTree {
         val searchOrder: MutableList<Int> = ArrayList()
-        val parent = IntArray(vertices.size){-1} // Initialize parent[i] to -1
+        val parent = IntArray(vertices.size) { -1 } // Initialize parent[i] to -1
         val queue = LinkedList<Int>() // list used as a queue
         val isVisited = BooleanArray(vertices.size)
         queue.offer(v) // Enqueue v
@@ -172,7 +173,7 @@ open class UnweightedGraph<V> : Graph<V> {
         while (!queue.isEmpty()) {
             val u = queue.poll() // Dequeue to u
             searchOrder.add(u) // u searched
-            neighbors[u].forEach {e-> // Note that e.u is u
+            neighbors[u].forEach { e -> // Note that e.u is u
                 if (!isVisited[e.v]) { // e.v is w in Listing 28.11
                     queue.offer(e.v) // Enqueue w
                     parent[e.v] = u // The parent of w is u
@@ -182,6 +183,7 @@ open class UnweightedGraph<V> : Graph<V> {
         }
         return SearchTree(v, parent, searchOrder)
     }
+
     /** Tree inner class inside the AbstractGraph class  */
     open inner class SearchTree(
         /** Return the root of the tree  */

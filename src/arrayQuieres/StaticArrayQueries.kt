@@ -1,3 +1,5 @@
+package arrayQuieres
+
 import kotlin.math.min as minI
 import kotlin.math.max as maxI
 import kotlin.math.log2
@@ -35,7 +37,7 @@ class StaticArrayQueries(val array:IntArray) {
         var count=1
         minList.add(array)
         count=count shl 1
-        val slidingWindowMinimum=SlidingWindow()
+        val slidingWindowMinimum= SlidingWindow()
         while (count<=array.size) {
             minList.add(slidingWindowMinimum.algorithmMin(array, count))
             count=count shl 1
@@ -62,7 +64,7 @@ class StaticArrayQueries(val array:IntArray) {
         var count=1
         maxList.add(array)
         count=count shl 1
-        val slidingWindowMinimum=SlidingWindow()
+        val slidingWindowMinimum= SlidingWindow()
         while (count<=array.size) {
             maxList.add(slidingWindowMinimum.algorithmMax(array, count))
             count=count shl 1

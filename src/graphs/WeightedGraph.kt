@@ -14,7 +14,7 @@ class WeightedGraph<V> : UnweightedGraph<V> {
 
     /** Construct a WeightedGraph from vertices and edges in list  */
     constructor(edges: Array<IntArray>, numberOfVertices: Int) {
-        val vertices= ArrayList<V>()
+        val vertices = ArrayList<V>()
         for (i in 0 until numberOfVertices)
             vertices.add(i as V)
         createWeightedGraph(vertices, edges)
@@ -30,7 +30,7 @@ class WeightedGraph<V> : UnweightedGraph<V> {
         edges: List<WeightedEdge>,
         numberOfVertices: Int
     ) {
-        val vertices= ArrayList<V>()
+        val vertices = ArrayList<V>()
         for (i in 0 until numberOfVertices)
             vertices.add(i as V)
         createWeightedGraph(vertices, edges)
@@ -74,9 +74,9 @@ class WeightedGraph<V> : UnweightedGraph<V> {
     }
 
     /** Display edges with weights  */
-    fun printWeightedEdges() = println(neighbors.indices.joinToString(separator = "\n"){
-        "${getVertex(it)} ($it): " + neighbors[it].joinToString(separator = " ",prefix = "(",postfix = ")"){
-                e-> getVertex(e.u).toString() + ", " + getVertex(e.v).toString() + ", " + (e as WeightedEdge).weight
+    fun printWeightedEdges() = println(neighbors.indices.joinToString(separator = "\n") {
+        "${getVertex(it)} ($it): " + neighbors[it].joinToString(separator = " ", prefix = "(", postfix = ")") { e ->
+            getVertex(e.u).toString() + ", " + getVertex(e.v).toString() + ", " + (e as WeightedEdge).weight
         }
     })
 
@@ -92,7 +92,7 @@ class WeightedGraph<V> : UnweightedGraph<V> {
     /** Get a minimum spanning tree rooted at a specified vertex  */
     fun getMinimumSpanningTree(startingVertex: Int): MST {
         // cost[v] stores the cost by adding v to the tree
-        val cost = DoubleArray(size){Double.POSITIVE_INFINITY}
+        val cost = DoubleArray(size) { Double.POSITIVE_INFINITY }
         cost[startingVertex] = 0.0 // Cost of source is 0
         val parent = IntArray(size) // Parent of a vertex
         parent[startingVertex] = -1 // startingVertex is the root

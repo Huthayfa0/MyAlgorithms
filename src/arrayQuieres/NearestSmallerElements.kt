@@ -1,3 +1,5 @@
+package arrayQuieres
+
 import java.util.*
 
 class NearestSmallerElements {
