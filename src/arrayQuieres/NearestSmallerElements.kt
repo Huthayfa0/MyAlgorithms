@@ -13,18 +13,18 @@ class NearestSmallerElements {
      * else it will contain the
      * O(n)
      */
-    fun algorithm(array: IntArray):Array<Pair<Int,Int>?>{
-        val ans=Array<Pair<Int,Int>?>(array.size){null}
-        val stack=Stack<Pair<Int,Int>>()
-        stack.add(Pair(0,array[0]))
-        for (i in 1 until array.size){
-            while (stack.size>0&&array[i]<stack.peek().second){
+    fun algorithm(array: IntArray): Array<Pair<Int, Int>?> {
+        val ans = Array<Pair<Int, Int>?>(array.size) { null }
+        val stack = Stack<Pair<Int, Int>>()
+        stack.add(Pair(0, array[0]))
+        for (i in 1 until array.size) {
+            while (stack.size > 0 && array[i] < stack.peek().second) {
                 stack.pop()
             }
-            if (stack.size>0){
-                ans[i]=stack.peek()
+            if (stack.size > 0) {
+                ans[i] = stack.peek()
             }
-            stack.push(Pair(i,array[i]))
+            stack.push(Pair(i, array[i]))
         }
         return ans
     }

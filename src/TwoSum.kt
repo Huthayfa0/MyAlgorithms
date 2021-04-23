@@ -14,27 +14,28 @@ class TwoSum {
      * O(nlog n)
      */
     fun unsortedAlgorithm(array: IntArray, x: Int): Pair<Int, Int>? {
-        val arr=array.clone()
+        val arr = array.clone()
         arr.sort()
-        return algorithm(arr,x)
+        return algorithm(arr, x)
     }
+
     /**
     array should be sorted
-     O(n)
+    O(n)
      */
     fun algorithm(array: IntArray, x: Int): Pair<Int, Int>? {
         var i = 0
-        var j = array.size-1
-        var sum = array[i]+array[j]
+        var j = array.size - 1
+        var sum = array[i] + array[j]
         while (j != i) {
             sum = when {
                 sum > x -> {
                     j--
-                    array[i]+array[j]
+                    array[i] + array[j]
                 }
                 sum < x -> {
                     i++
-                    array[i]+array[j]
+                    array[i] + array[j]
                 }
                 else -> {
                     return Pair(i, j)
