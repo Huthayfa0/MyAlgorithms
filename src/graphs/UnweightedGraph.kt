@@ -3,12 +3,12 @@ package graphs
 import java.util.*
 
 
-class UnweightedGraph<V> : Graph<V> {
+open class UnweightedGraph<V> : Graph<V> {
     override var vertices = ArrayList<V>() // Store vertices
     protected var neighbors: MutableList<MutableList<Edge>> = ArrayList() // Adjacency lists
 
     /** Construct an empty graph  */
-    constructor() {}
+    constructor()
 
     /** Construct a graph from vertices and edges stored in arrays  */
     constructor(vertices: Array<V>, edges: Array<IntArray>) {
@@ -92,26 +92,23 @@ class UnweightedGraph<V> : Graph<V> {
     }
 
     /** Add a vertex to the graph  */
-    override fun addVertex(vertex: V): Boolean {
-        if (!vertices.contains(vertex)) {
+    final override fun addVertex(vertex: V): Boolean {
+        return if (!vertices.contains(vertex)) {
             vertices.add(vertex)
             neighbors.add(ArrayList())
-            return true
-        } else {
-            return false
-        }
+            true
+        } else false
     }
 
     /** Add an edge to the graph  */
     override fun addEdge(e: Edge): Boolean {
         if (e.u < 0 || e.u > size - 1) throw IllegalArgumentException("No such index: " + e.u)
         if (e.v < 0 || e.v > size - 1) throw IllegalArgumentException("No such index: " + e.v)
-        if (!neighbors[e.u].contains(e)) {
+        return if (!neighbors[e.u].contains(e)) {
             neighbors[e.u].add(e)
-            return true
-        } else {
-            return false
-        }
+            true
+        } else false
+
     }
 
     /** Add an edge to the graph  */
@@ -186,7 +183,7 @@ class UnweightedGraph<V> : Graph<V> {
         return SearchTree(v, parent, searchOrder)
     }
     /** Tree inner class inside the AbstractGraph class  */
-    inner class SearchTree(
+    open inner class SearchTree(
         /** Return the root of the tree  */
         val root // The root of the tree
         : Int, // Store the parent of each vertex

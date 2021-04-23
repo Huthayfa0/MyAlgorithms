@@ -1,6 +1,6 @@
 package graphs
 
-data class Edge(val u: Int, val v: Int) {
+open class Edge(val u: Int, val v: Int) {
     override fun equals(other: Any?): Boolean {
         return u == (other as Edge?)!!.u && v == other!!.v
     }
