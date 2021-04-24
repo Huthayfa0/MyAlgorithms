@@ -57,7 +57,9 @@ open class UnweightedGraph<V> : Graph<V> {
     }
 
     /** Return the number of vertices in the graph  */
-    override val size: Int = vertices.size
+    override val size: Int
+    get() = vertices.size
+
 
 
     /** Return the object for the specified vertex  */
@@ -78,8 +80,8 @@ open class UnweightedGraph<V> : Graph<V> {
 
     /** Print the edges  */
     override fun printEdges() = println(neighbors.indices.joinToString(separator = "\n") {
-        "${getVertex(it)} ($it): " + neighbors[it].joinToString(separator = " ", prefix = "(", postfix = ")") { e ->
-            getVertex(e.u).toString() + ", " + getVertex(e.v).toString()
+        "${getVertex(it)} ($it): " + neighbors[it].joinToString(separator = ", ", prefix = "{", postfix = "}") { e ->
+            "("+getVertex(e.u) + ", " + getVertex(e.v) + ")"
         }
     })
 
