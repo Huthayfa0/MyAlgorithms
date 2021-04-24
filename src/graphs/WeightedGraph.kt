@@ -73,8 +73,8 @@ class WeightedGraph<V> : UnweightedGraph<V> {
 
     /** Display edges with weights  */
     fun printWeightedEdges() = println(neighbors.indices.joinToString(separator = "\n") {
-        "${getVertex(it)} ($it): " + neighbors[it].joinToString(separator = " ", prefix = "(", postfix = ")") { e ->
-            getVertex(e.u).toString() + ", " + getVertex(e.v).toString() + ", " + (e as WeightedEdge).weight
+        "${getVertex(it)} ($it): " + neighbors[it].joinToString(separator = " ", prefix = "{", postfix = "}") { e ->
+            "(" + getVertex(e.u) + ", " + getVertex(e.v) + ", " + (e as WeightedEdge).weight + ")"
         }
     })
 
@@ -84,11 +84,13 @@ class WeightedGraph<V> : UnweightedGraph<V> {
     }
 
     /** Get a minimum spanning tree rooted at vertex 0  */
-    val minimumSpanningTree: MST
-        get() = getMinimumSpanningTree(0)
+    val shortestPathTree: ShortestPathTree
+        get() = getShortestPathTree(0)
 
-    /** Get a minimum spanning tree rooted at a specified vertex  */
-    fun getMinimumSpanningTree(startingVertex: Int): MST {
+    /** O(nm) : n number of nodes and m number of edges
+     * Bellman–Ford algorithm
+     * Get a minimum spanning tree rooted at a specified vertex  */
+    fun getShortestPathTree(startingVertex: Int): ShortestPathTree {
         // cost[v] stores the cost by adding v to the tree
         val cost = DoubleArray(size) { Double.POSITIVE_INFINITY }
         cost[startingVertex] = 0.0 // Cost of source is 0
@@ -113,61 +115,14 @@ class WeightedGraph<V> : UnweightedGraph<V> {
 
             // Adjust cost[v] for v that is adjacent to u and v in V - T
             for (e: Edge in neighbors[u]) {
-                if (!t.contains(e.v) && cost[e.v] > (e as WeightedEdge).weight) {
-                    cost[e.v] = e.weight
+                val sum = (e as WeightedEdge).weight + cost[u]
+                if (!t.contains(e.v) && cost[e.v] > sum) {
+                    cost[e.v] = sum
                     parent[e.v] = u
                 }
             }
         } // End of while
-        return MST(startingVertex, parent, t, totalWeight)
-    }
-
-    /** MST is an inner class in WeightedGraph  */
-    inner class MST(
-        root: Int, parent: IntArray, searchOrder: List<Int>,
-        // Total weight of all edges in the tree
-        val totalWeight: Double
-    ) : SearchTree(root, parent, searchOrder)
-
-    /** Find single source shortest paths  */
-    fun getShortestPath(sourceVertex: Int): ShortestPathTree {
-        // cost[v] stores the cost of the path from v to the source
-        val cost = DoubleArray(size) { Double.POSITIVE_INFINITY }
-        cost[sourceVertex] = 0.0 // Cost of source is 0
-
-        // parent[v] stores the previous vertex of v in the path
-        val parent = IntArray(size)
-        parent[sourceVertex] = -1 // The parent of source is set to -1
-
-        // T stores the vertices whose path found so far
-        val t = ArrayList<Int>()
-
-        // Expand T
-        while (t.size < size) {
-            // Find smallest cost v in V - T
-            var u = -1 // Vertex to be determined
-            var currentMinCost = Double.POSITIVE_INFINITY
-            for (i in 0 until size) {
-                if (!t.contains(i) && cost[i] < currentMinCost) {
-                    currentMinCost = cost[i]
-                    u = i
-                }
-            }
-            if (u == -1) break else t.add(u) // Add a new vertex to T
-
-            // Adjust cost[v] for v that is adjacent to u and v in V - T
-            for (e: Edge in neighbors[u]) {
-                if ((!t.contains(e.v)
-                            && cost[e.v] > cost[u] + (e as WeightedEdge).weight)
-                ) {
-                    cost[e.v] = cost[u] + e.weight
-                    parent[e.v] = u
-                }
-            }
-        } // End of while
-
-        // Create a ShortestPathTree
-        return ShortestPathTree(sourceVertex, parent, t, cost)
+        return ShortestPathTree(startingVertex, parent, t, cost)
     }
 
     /** ShortestPathTree is an inner class in WeightedGraph  */
