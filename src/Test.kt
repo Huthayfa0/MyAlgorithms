@@ -1,4 +1,6 @@
 import graphs.WeightedGraph
+import graphs.shortestPaths.dijkstra
+import graphs.shortestPaths.dijkstraShortestPathTree
 
 fun main() {
 val weightedGraph=WeightedGraph<Int>(ArrayList(),5)
@@ -17,7 +19,7 @@ val weightedGraph=WeightedGraph<Int>(ArrayList(),5)
     weightedGraph.addEdge(3,2,1.0)
     weightedGraph.addEdge(2,3,1.0)
 
-    weightedGraph.printWeightedEdges()
-    val x=weightedGraph.shortestPathTree
+    val x=weightedGraph.dijkstraShortestPathTree
+    x.printAllPaths()
 
 }

@@ -82,7 +82,12 @@ class WeightedGraph<V> : UnweightedGraph<V> {
     fun addEdge(u: Int, v: Int, weight: Double): Boolean {
         return addEdge(WeightedEdge(u, v, weight))
     }
-
+    /** Return the neighbors of the specified vertex  */
+    fun getNeighborsWithWeight(index: Int): List<Pair<Int,Double>> {
+        val result: MutableList<Pair<Int,Double>> = java.util.ArrayList()
+        for (e: Edge in neighbors[index]) result.add(Pair(e.v,(e as WeightedEdge).weight))
+        return result
+    }
     /** Get a minimum spanning tree rooted at vertex 0  */
     val shortestPathTree: ShortestPathTree
         get() = getShortestPathTree(0)
@@ -96,7 +101,6 @@ class WeightedGraph<V> : UnweightedGraph<V> {
         cost[startingVertex] = 0.0 // Cost of source is 0
         val parent = IntArray(size) // Parent of a vertex
         parent[startingVertex] = -1 // startingVertex is the root
-        var totalWeight = 0.0 // Total weight of the tree thus far
         val t = ArrayList<Int>()
 
         // Expand T
@@ -111,7 +115,7 @@ class WeightedGraph<V> : UnweightedGraph<V> {
                 }
             }
             if (u == -1) break else t.add(u) // Add a new vertex to T
-            totalWeight += cost[u] // Add cost[u] to the tree
+            // Add cost[u] to the tree
 
             // Adjust cost[v] for v that is adjacent to u and v in V - T
             for (e: Edge in neighbors[u]) {

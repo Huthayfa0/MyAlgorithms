@@ -69,8 +69,8 @@ open class UnweightedGraph<V> : Graph<V> {
     override fun getIndex(v: V) = vertices.indexOf(v)
 
     /** Return the neighbors of the specified vertex  */
-    override fun getNeighbors(index: Int): List<Int?> {
-        val result: MutableList<Int?> = ArrayList()
+    override fun getNeighbors(index: Int): List<Int> {
+        val result: MutableList<Int> = ArrayList()
         for (e: Edge in neighbors[index]) result.add(e.v)
         return result
     }
