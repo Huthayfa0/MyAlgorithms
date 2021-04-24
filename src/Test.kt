@@ -3,6 +3,7 @@ import graphs.shortestPaths.dijkstra
 import graphs.shortestPaths.dijkstraShortestPathTree
 
 fun main() {
+
 val weightedGraph=WeightedGraph<Int>(ArrayList(),5)
     weightedGraph.addEdge(0,1,5.0)
     weightedGraph.addEdge(1,0,5.0)

@@ -88,6 +88,16 @@ class WeightedGraph<V> : UnweightedGraph<V> {
         for (e: Edge in neighbors[index]) result.add(Pair(e.v,(e as WeightedEdge).weight))
         return result
     }
+    val adjacencyMatrix: Array<DoubleArray>
+        get() {
+        val adj=Array(size){DoubleArray(size){ Double.POSITIVE_INFINITY} }
+        for (list in neighbors) {
+            for (e in list){
+                adj[e.u][e.v]=(e as WeightedEdge).weight
+            }
+        }
+        return adj
+    }
     /** Get a minimum spanning tree rooted at vertex 0  */
     val shortestPathTree: ShortestPathTree
         get() = getShortestPathTree(0)
