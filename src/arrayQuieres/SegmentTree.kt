@@ -34,11 +34,12 @@ class SegmentTree(var array: IntArray) {
             minTree[i + halfSize] = array[i]
         }
         for (i in halfSize - 1 downTo 0) {
-            minTree[i] = maxI(maxTree[i * 2], minTree[i * 2 + 1])
+            minTree[i] = maxI(minTree[i * 2], minTree[i * 2 + 1])
         }
+        minReady=true
     }
 
-    fun min(start: Int = 0, end: Int = array.size): Int {
+    fun min(start: Int = 0, end: Int = array.size-1): Int {
         if (!minReady) minEvaluate()
 
         return when {
@@ -71,6 +72,7 @@ class SegmentTree(var array: IntArray) {
         for (i in halfSize - 1 downTo 0) {
             maxTree[i] = maxI(maxTree[i * 2], maxTree[i * 2 + 1])
         }
+        maxReady=true
     }
 
     fun max(start: Int = 0, end: Int = array.size - 1): Int {
