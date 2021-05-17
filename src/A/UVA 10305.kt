@@ -4,8 +4,10 @@ val an= mutableListOf<Int>()
 fun main() {
     val (n,k)= readLine()!!.split(" ").map { it.toInt() }
     val adjacency=Array(n){ mutableSetOf<Int>()}
-    repeat(k){
+    while(true){
         val (i,j)= readLine()!!.split(" ").map {x->x.toInt() }
+        if(i==0 || j==0)
+            break
         adjacency[i-1].add(j-1)
     }
     val vis=BooleanArray(n)
