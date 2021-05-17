@@ -1,7 +1,8 @@
 package A
 
-val ans= mutableListOf<Int>()
+
 fun main() {
+    val ans= mutableListOf<Int>()
     val (n,k)= readLine()!!.split(" ").map { it.toInt() }
     val adjacency=Array(n){ mutableSetOf<Int>()}
     repeat(k){
@@ -14,7 +15,7 @@ fun main() {
 
     for (i in vis.indices){
         if (!vis[i]){
-            dfs(i,vis,adjacency)
+            dfs(i,vis,adjacency,ans)
         }
     }
     val arr=IntArray(n)
@@ -26,11 +27,11 @@ fun main() {
     println(arr.joinToString (separator = "\n"))
 }
 
-fun dfs(i: Int, vis: BooleanArray, adjacency: Array<MutableSet<Int>>) {
+fun dfs(i: Int, vis: BooleanArray, adjacency: Array<MutableSet<Int>>, ans: MutableList<Int>) {
     vis[i]=true
     for (x in adjacency[i]){
         if (!vis[x]){
-            dfs(x,vis,adjacency)
+            dfs(x,vis,adjacency,ans)
         }
     }
     ans.add(i)
