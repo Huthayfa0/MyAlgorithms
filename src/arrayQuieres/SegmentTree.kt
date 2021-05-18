@@ -1,8 +1,5 @@
 package arrayQuieres
 
-import kotlin.math.max as maxI
-import kotlin.math.min as minI
-
 /**
  * A segment tree is a binary tree such that the nodes on the bottom level of the
 tree correspond to the array elements, and the other nodes contain information
@@ -34,7 +31,7 @@ class SegmentTree(var array: IntArray) {
             minTree[i + halfSize] = array[i]
         }
         for (i in halfSize - 1 downTo 0) {
-            minTree[i] = maxI(minTree[i * 2], minTree[i * 2 + 1])
+            minTree[i] = kotlin.math.min(minTree[i * 2], minTree[i * 2 + 1])
         }
         minReady=true
     }
@@ -52,12 +49,12 @@ class SegmentTree(var array: IntArray) {
                 var r = end + halfSize
                 var ans = Int.MAX_VALUE
                 while (l <= r) {
-                    if (l and 1 == 1) ans = minI(ans, minTree[l++])
-                    if (r and 1 == 0) ans = minI(ans, minTree[r--])
+                    if (l and 1 == 1) ans = kotlin.math.min(ans, minTree[l++])
+                    if (r and 1 == 0) ans = kotlin.math.min(ans, minTree[r--])
                     l = l shr 1
                     r = r shr 1
                 }
-                return l
+                return ans
             }
         }
     }
@@ -70,7 +67,7 @@ class SegmentTree(var array: IntArray) {
             maxTree[i + halfSize] = array[i]
         }
         for (i in halfSize - 1 downTo 0) {
-            maxTree[i] = maxI(maxTree[i * 2], maxTree[i * 2 + 1])
+            maxTree[i] = kotlin.math.max(maxTree[i * 2], maxTree[i * 2 + 1])
         }
         maxReady=true
     }
@@ -89,8 +86,8 @@ class SegmentTree(var array: IntArray) {
                 var ans = Int.MIN_VALUE
                 while (l <= r) {
                     //l and 1 is same as l mod 2
-                    if (l and 1 == 1) ans = maxI(ans, maxTree[l++])
-                    if (r and 1 == 0) ans = maxI(ans, maxTree[r--])
+                    if (l and 1 == 1) ans = kotlin.math.max(ans, maxTree[l++])
+                    if (r and 1 == 0) ans = kotlin.math.max(ans, maxTree[r--])
                     l = l shr 1
                     r = r shr 1
                 }
@@ -100,31 +97,33 @@ class SegmentTree(var array: IntArray) {
     }
 
     fun update(k: Int, x: Int) {
-        if (x > array[k]) {
+            var l:Int
             if (maxReady) {
                 var index = k + halfSize
                 maxTree[index] = x
                 index = index shr 1
-                while (maxTree[index] < x) {
-                    maxTree[index] = x
+                l = kotlin.math.max(maxTree[index * 2], maxTree[index * 2 + 1])
+                while (maxTree[index] != l) {
+                    maxTree[index] = l
                     index = index shr 1
+                    l = kotlin.math.max(maxTree[index * 2], maxTree[index * 2 + 1])
                     if (index == 0) break
                 }
             }
-            array[k] = x
-        } else if (x < array[k]) {
             if (minReady) {
                 var index = k + halfSize
                 minTree[index] = x
                 index = index shr 1
-                while (minTree[index] > x) {
-                    minTree[index] = x
+                l=kotlin.math.min(minTree[index*2],minTree[index*2+1])
+                while (minTree[index] !=l) {
+                    minTree[index] = l
                     index = index shr 1
                     if (index == 0) break
+                    l=kotlin.math.min(minTree[index*2],minTree[index*2+1])
                 }
             }
             array[k] = x
-        }
+
 
     }
 }
