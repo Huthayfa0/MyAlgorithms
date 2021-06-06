@@ -3,94 +3,194 @@ import java.util.*
 import kotlin.math.log2
 
 fun main() {
-
+    val x = 91
+    println(x.isPrime())
+    println(+5)
 }
+
 //Scanner code
- fun readln() = readLine()!!
- fun readlnByte() = readln().toByte()
- fun readlnShort() = readln().toShort()
- fun readlnInt() = readln().toInt()
- fun readlnLong() = readln().toLong()
- fun readlnFloat() = readln().toFloat()
- fun readlnDouble() = readln().toDouble()
- fun readlnBigInt(radix: Int = 10) = readln().toBigInteger(radix)
- fun readlnBigDecimal() = readln().toBigDecimal()
+fun readln() = readLine()!!
+fun readlnInt() = readln().toInt()
+fun readlnLong() = readln().toLong()
+fun readlnDouble() = readln().toDouble()
+fun readlnBigInt(radix: Int = 10) = readln().toBigInteger(radix)
+fun readlnBigDecimal() = readln().toBigDecimal()
+fun lineSequence(limit: Int = Int.MAX_VALUE) = generateSequence { readLine() }.constrainOnce().take(limit)
+fun readlnStrings() = readln().split(' ')
+fun readlnInts() = readlnStrings().map { it.toInt() }
+fun readlnLongs() = readlnStrings().map { it.toLong() }
+fun readlnDoubles() = readlnStrings().map { it.toDouble() }
+fun readIntArray() = readlnStrings().run { IntArray(size) { get(it).toInt() } }
+fun readLongArray() = readlnStrings().run { LongArray(size) { get(it).toLong() } }
+fun readDoubleArray() = readlnStrings().run { DoubleArray(size) { get(it).toDouble() } }
+fun readlnIntArray(n: Int) = IntArray(n) { readlnInt() }
+fun readlnLongArray(n: Int) = LongArray(n) { readlnLong() }
+fun readlnDoubleArray(n: Int) = DoubleArray(n) { readlnDouble() }
+fun readLongArray2d(rows: Int, cols: Int) = Array(rows) { readLongArray().also { require(it.size == cols) } }
+fun readIntArray2d(rows: Int, cols: Int) = Array(rows) { readIntArray().also { require(it.size == cols) } }
+fun readDoubleArray2d(rows: Int, cols: Int) = Array(rows) { readDoubleArray().also { require(it.size == cols) } }
+fun isWhiteSpace(c: Char) = c in " \r\n\t"
 
- fun lineSequence(limit: Int = Int.MAX_VALUE) = generateSequence { readLine() }.constrainOnce().take(limit)
- fun readlnStrings() = readln().split(' ')
- fun readlnBytes() = readlnStrings().map { it.toByte() }
- fun readlnShorts() = readlnStrings().map { it.toShort() }
- fun readlnInts() = readlnStrings().map { it.toInt() }
- fun readlnLongs() = readlnStrings().map { it.toLong() }
- fun readlnFloats() = readlnStrings().map { it.toFloat() }
- fun readlnDoubles() = readlnStrings().map { it.toDouble() }
+// JVM-only targeting code follows next
+// readString() via sequence is still slightly faster than Scanner
+fun readString() = generateSequence { System.`in`.read().toChar() }
+    .dropWhile { isWhiteSpace(it) }.takeWhile { !isWhiteSpace(it) }.joinToString("")
 
- fun readByteArray() = readlnStrings().run { ByteArray(size) { get(it).toByte() } }
- fun readShortArray() = readlnStrings().run { ShortArray(size) { get(it).toShort() } }
- fun readIntArray() = readlnStrings().run { IntArray(size) { get(it).toInt() } }
- fun readLongArray() = readlnStrings().run { LongArray(size) { get(it).toLong() } }
- fun readFloatArray() = readlnStrings().run { FloatArray(size) { get(it).toFloat() } }
- fun readDoubleArray() = readlnStrings().run { DoubleArray(size) { get(it).toDouble() } }
+fun readInt() = readString().toInt()
+fun readLong() = readString().toLong()
+fun readDouble() = readString().toDouble()
+fun readBigInt(radix: Int = 10) = readString().toBigInteger(radix)
+fun readBigDecimal() = readString().toBigDecimal()
+fun readInts(n: Int) = generateSequence { readInt() }.take(n)
+fun readLongs(n: Int) = generateSequence { readLong() }.take(n)
+fun readDoubles(n: Int) = generateSequence { readDouble() }.take(n)
 
- fun readlnByteArray(n: Int) = ByteArray(n) { readlnByte() }
- fun readlnShortArray(n: Int) = ShortArray(n) { readlnShort() }
- fun readlnIntArray(n: Int) = IntArray(n) { readlnInt() }
- fun readlnLongArray(n: Int) = LongArray(n) { readlnLong() }
- fun readlnFloatArray(n: Int) = FloatArray(n) { readlnFloat() }
- fun readlnDoubleArray(n: Int) = DoubleArray(n) { readlnDouble() }
+//Graphs
+fun dfs(size: Int, adjacencyList: List<List<List<Int>>>, v: Int = 0) {
+    val searchOrder = ArrayList<Int>()
+    val parent = IntArray(size) { -1 }
 
- fun readByteArray2d(rows: Int, cols: Int) = Array(rows) { readByteArray().also { require(it.size == cols) } }
- fun readShortArray2d(rows: Int, cols: Int) = Array(rows) { readShortArray().also { require(it.size == cols) } }
- fun readLongArray2d(rows: Int, cols: Int) = Array(rows) { readLongArray().also { require(it.size == cols) } }
- fun readIntArray2d(rows: Int, cols: Int) = Array(rows) { readIntArray().also { require(it.size == cols) } }
- fun readFloatArray2d(rows: Int, cols: Int) = Array(rows) { readFloatArray().also { require(it.size == cols) } }
- fun readDoubleArray2d(rows: Int, cols: Int) = Array(rows) { readDoubleArray().also { require(it.size == cols) } }
-
- fun isWhiteSpace(c: Char) = c in " \r\n\t"
-
- // JVM-only targeting code follows next
-
- // readString() via sequence is still slightly faster than Scanner
- fun readString() = generateSequence { System.`in`.read().toChar() }
-     .dropWhile { isWhiteSpace(it) }.takeWhile { !isWhiteSpace(it) }.joinToString("")
- fun readByte() = readString().toByte()
- fun readShort() = readString().toShort()
- fun readInt() = readString().toInt()
- fun readLong() = readString().toLong()
- fun readFloat() = readString().toFloat()
- fun readDouble() = readString().toDouble()
- fun readBigInt(radix: Int = 10) = readString().toBigInteger(radix)
- fun readBigDecimal() = readString().toBigDecimal()
-
- fun readBytes(n: Int) = generateSequence { readByte() }.take(n)
- fun readShorts(n: Int) = generateSequence { readShort() }.take(n)
- fun readInts(n: Int) = generateSequence { readInt() }.take(n)
- fun readLongs(n: Int) = generateSequence { readLong() }.take(n)
- fun readFloats(n: Int) = generateSequence { readFloat() }.take(n)
- fun readDoubles(n: Int) = generateSequence { readDouble() }.take(n)
-
-//SubarraySum
-fun subarraySum(array: IntArray, x: Int): Pair<Int, Int>? {
-    var i = 0
-    var j = 1
-    var sum = array[0]
-    while (j != array.size) {
-        when {
-            sum > x -> {
-                sum -= array[i]
-                i++
-            }
-            sum < x -> {
-                sum += array[j]
-                j++
-            }
-            else -> {
-                return Pair(i, j)
+    // Mark visited vertices
+    val isVisited = BooleanArray(size)
+    fun dfs(v: Int) {
+        // Store the visited vertex
+        searchOrder.add(v)
+        isVisited[v] = true // Vertex v visited
+        adjacencyList[v].forEach { e -> // Note that e.u is v
+            if (!isVisited[e[1]]) { // e.v is w in Listing 28.8
+                parent[e[1]] = v // The parent of w is v
+                dfs(e[1]) // Recursive search
             }
         }
     }
-    return null
+    // Recursively search
+    dfs(v)
 }
+
+fun bfs(size: Int, adjacencyList: List<List<List<Int>>>, v: Int = 0) {
+    val searchOrder: MutableList<Int> = java.util.ArrayList()
+    val parent = IntArray(size) { -1 } // Initialize parent[i] to -1
+    val queue = LinkedList<Int>() // list used as a queue
+    val isVisited = BooleanArray(size)
+    queue.offer(v) // Enqueue v
+    isVisited[v] = true // Mark it visited
+    while (!queue.isEmpty()) {
+        val u = queue.poll() // Dequeue to u
+        searchOrder.add(u) // u searched
+        adjacencyList[u].forEach { e -> // Note that e.u is u
+            if (!isVisited[e[1]]) { // e.v is w in Listing 28.11
+                queue.offer(e[1]) // Enqueue w
+                parent[e[1]] = u // The parent of w is u
+                isVisited[e[1]] = true // Mark w visited
+            }
+        }
+    }
+
+}
+
+fun dijkstra(size: Int, adjacencyList: List<List<List<Int>>>, startingVertex: Int = 0) {
+    val cost = DoubleArray(size) { Double.POSITIVE_INFINITY }
+    cost[startingVertex] = 0.0 // Cost of source is 0
+    val parent = IntArray(size) // Parent of a vertex
+    parent[startingVertex] = -1 // startingVertex is the root
+    val processed = BooleanArray(size)
+    val t = PriorityQueue<Pair<Double, Int>>(Comparator.comparing { it.first })
+    val list = ArrayList<Int>()
+    t.add(Pair(0.0, startingVertex))
+    while (!t.isEmpty()) {
+        val a = t.poll().second
+        if (processed[a]) continue
+        processed[a] = true
+        list.add(a)
+        for (u in adjacencyList[a]) {
+            val b = u[1]
+            val w = u[2]
+            if (cost[a] + w < cost[b]) {
+                parent[b] = a
+                cost[b] = cost[a] + w
+                t.add(Pair(cost[b], b))
+            }
+        }
+    }
+}
+
+fun floydWarshall(adjacencyMatrix: Array<DoubleArray>): Array<DoubleArray> {
+
+    val distance = adjacencyMatrix
+    val size = distance.size
+    for (k in 0 until size) {
+        for (i in 0 until size) {
+            for (j in 0 until size) {
+                distance[i][j] = java.lang.Double.min(
+                    distance[i][j],
+                    distance[i][k] + distance[k][j]
+                )
+            }
+        }
+    }
+
+    return distance
+}
+
+fun bellmanFord(graph: Array<IntArray>, V: Int, E: Int, src: Int) {
+    // Initialize distance of all vertices as infinite.
+    val dis = IntArray(V) { Int.MAX_VALUE }
+
+    // initialize distance of source as 0
+    dis[src] = 0
+
+    // Relax all edges |V| - 1 times. A simple
+    // shortest path from src to any other
+    // vertex can have at-most |V| - 1 edges
+    for (i in 0 until V - 1) {
+        for (j in 0 until E) {
+            if (dis[graph[j][0]] != Int.MAX_VALUE && dis[graph[j][0]] + graph[j][2] <
+                dis[graph[j][1]]
+            ) dis[graph[j][1]] = dis[graph[j][0]] + graph[j][2]
+        }
+    }
+
+    // check for negative-weight cycles.
+    // The above step guarantees shortest
+    // distances if graph doesn't contain
+    // negative weight cycle. If we get a
+    // shorter path, then there is a cycle.
+    for (i in 0 until E) {
+        val x = graph[i][0]
+        val y = graph[i][1]
+        val weight = graph[i][2]
+        if (dis[x] != Int.MAX_VALUE && dis[x] + weight < dis[y]) println("Graph contains negative weight cycle")
+    }
+    println("Vertex Distance from Source")
+    for (i in 0 until V) println("$i\t\t${dis[i]}")
+}
+
+//Primes
+fun Int.isPrime(): Boolean {
+    if (this < 2) return false
+    var x = 2
+    while (x * x <= this) {
+        if (this % x == 0) return false
+        x++
+    }
+    return true
+}
+
+fun Int.primeFactors(): LinkedList<Int> {
+    var n = this
+    val f = LinkedList<Int>()
+    var x = 2
+    while (x * x <= n) {
+        while (n % x == 0) {
+            f.addLast(x)
+            n /= x
+        }
+        x++
+    }
+    if (n > 1) f.addLast(n)
+    return f
+}
+
 //SegmentTree
 class SegmentTree(var array: IntArray) {
     private var minReady = false
@@ -120,10 +220,10 @@ class SegmentTree(var array: IntArray) {
         for (i in halfSize - 1 downTo 0) {
             minTree[i] = kotlin.math.min(minTree[i * 2], minTree[i * 2 + 1])
         }
-        minReady=true
+        minReady = true
     }
 
-    fun min(start: Int = 0, end: Int = array.size-1): Int {
+    fun min(start: Int = 0, end: Int = array.size - 1): Int {
         if (!minReady) minEvaluate()
 
         return when {
@@ -156,7 +256,7 @@ class SegmentTree(var array: IntArray) {
         for (i in halfSize - 1 downTo 0) {
             maxTree[i] = kotlin.math.max(maxTree[i * 2], maxTree[i * 2 + 1])
         }
-        maxReady=true
+        maxReady = true
     }
 
     fun max(start: Int = 0, end: Int = array.size - 1): Int {
@@ -184,7 +284,7 @@ class SegmentTree(var array: IntArray) {
     }
 
     fun update(k: Int, x: Int) {
-        var l:Int
+        var l: Int
         if (maxReady) {
             var index = k + halfSize
             maxTree[index] = x
@@ -201,12 +301,12 @@ class SegmentTree(var array: IntArray) {
             var index = k + halfSize
             minTree[index] = x
             index = index shr 1
-            l=kotlin.math.min(minTree[index*2],minTree[index*2+1])
-            while (minTree[index] !=l) {
+            l = kotlin.math.min(minTree[index * 2], minTree[index * 2 + 1])
+            while (minTree[index] != l) {
                 minTree[index] = l
                 index = index shr 1
                 if (index == 0) break
-                l=kotlin.math.min(minTree[index*2],minTree[index*2+1])
+                l = kotlin.math.min(minTree[index * 2], minTree[index * 2 + 1])
             }
         }
         array[k] = x
@@ -290,7 +390,7 @@ class StaticArrayQueries(val array: IntArray) {
         maxReady = true
     }
 
-    //O(ln n)
+    //O(nln n)
     fun max(start: Int = 0, end: Int = array.size - 1): Int {
         if (!maxReady) maxEvaluate()
         val c = log2((end - start + 1).toFloat()).toInt()
@@ -305,6 +405,7 @@ class StaticArrayQueries(val array: IntArray) {
         }
     }
 }
+
 //SlidingWindow
 fun slidingWindowMin(array: IntArray, slidingWindowSize: Int): IntArray {
     if (slidingWindowSize >= array.size) return IntArray(1) { Collections.min(array.toList()) }
@@ -335,6 +436,7 @@ fun slidingWindowMin(array: IntArray, slidingWindowSize: Int): IntArray {
     }
     return ans
 }
+
 //NearestSmallerElements
 fun nearestSmallerElements(array: IntArray): Array<Pair<Int, Int>?> {
     val ans = Array<Pair<Int, Int>?>(array.size) { null }
@@ -351,31 +453,6 @@ fun nearestSmallerElements(array: IntArray): Array<Pair<Int, Int>?> {
     }
     return ans
 }
-
-//MaximumSubarraySum
-fun maximumSubarraySum(array: IntArray, start: Int = 0, end: Int = array.size): Int {
-    var best = 0
-    var sum = 0
-    for (k in start until end) {
-        sum = Integer.max(array[k], sum + array[k])
-        best = Integer.max(best, sum)
-    }
-    return best
-}
-
-fun maximumSubarraySumWithIndices(array: IntArray, start: Int = 0, end: Int = array.size): Pair<Int, Pair<Int, Int>> {
-    var best = Pair(0, Pair(start, start))
-    var sum = Pair(0, Pair(start, start))
-
-    for (k in start until end) {
-        val temp1 = Pair(array[k], Pair(k, k + 1))
-        val temp2 = Pair(sum.first + array[k], Pair(sum.second.first, k + 1))
-        sum = if (temp1.first > temp2.first) temp1 else temp2
-        best = if (best.first > sum.first) best else sum
-    }
-    return best
-}
-
 
 //BinaryIndexedTree
 class BinaryIndexedTree(var array: IntArray) {
@@ -421,29 +498,5 @@ class BinaryIndexedTree(var array: IntArray) {
         else -> sum0ton(end) - sum0ton(start)
     }
 
-}
-//Primes
-fun isPrime(n: Int): Boolean {
-    if (n < 2) return false
-    var x = 2
-    while (x * x <= n) {
-        if (n % x == 0) return false
-        x++
-    }
-    return true
-}
-fun primeFactors(v: Int): LinkedList<Int> {
-    var n = v
-    val f= LinkedList<Int>()
-    var x = 2
-    while (x * x <= n) {
-        while (n % x == 0) {
-            f.addLast(x)
-            n /= x
-        }
-        x++
-    }
-    if (n > 1) f.addLast(n)
-    return f
 }
 
