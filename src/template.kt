@@ -1,11 +1,10 @@
 import arrayQuieres.SlidingWindow
 import java.util.*
-import kotlin.math.log2
+import kotlin.math.*
 
 fun main() {
-    val x = 91
-    println(x.isPrime())
-    println(+5)
+    val x = 5.0.pow ((4))
+
 }
 
 //Scanner code
@@ -35,7 +34,6 @@ fun isWhiteSpace(c: Char) = c in " \r\n\t"
 // readString() via sequence is still slightly faster than Scanner
 fun readString() = generateSequence { System.`in`.read().toChar() }
     .dropWhile { isWhiteSpace(it) }.takeWhile { !isWhiteSpace(it) }.joinToString("")
-
 fun readInt() = readString().toInt()
 fun readLong() = readString().toLong()
 fun readDouble() = readString().toDouble()
@@ -121,10 +119,7 @@ fun floydWarshall(adjacencyMatrix: Array<DoubleArray>): Array<DoubleArray> {
     for (k in 0 until size) {
         for (i in 0 until size) {
             for (j in 0 until size) {
-                distance[i][j] = java.lang.Double.min(
-                    distance[i][j],
-                    distance[i][k] + distance[k][j]
-                )
+                distance[i][j] = java.lang.Double.min(distance[i][j], distance[i][k] + distance[k][j])
             }
         }
     }
