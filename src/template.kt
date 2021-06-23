@@ -3,48 +3,47 @@ import java.util.*
 import kotlin.math.*
 
 fun main() {
-    val x = 5.0.pow ((4))
 
 }
 
 //Scanner code
-fun readln() = readLine()!!
-fun readlnInt() = readln().toInt()
-fun readlnLong() = readln().toLong()
-fun readlnDouble() = readln().toDouble()
-fun readlnBigInt(radix: Int = 10) = readln().toBigInteger(radix)
-fun readlnBigDecimal() = readln().toBigDecimal()
-fun lineSequence(limit: Int = Int.MAX_VALUE) = generateSequence { readLine() }.constrainOnce().take(limit)
-fun readlnStrings() = readln().split(' ')
-fun readlnInts() = readlnStrings().map { it.toInt() }
-fun readlnLongs() = readlnStrings().map { it.toLong() }
-fun readlnDoubles() = readlnStrings().map { it.toDouble() }
-fun readIntArray() = readlnStrings().run { IntArray(size) { get(it).toInt() } }
-fun readLongArray() = readlnStrings().run { LongArray(size) { get(it).toLong() } }
-fun readDoubleArray() = readlnStrings().run { DoubleArray(size) { get(it).toDouble() } }
-fun readlnIntArray(n: Int) = IntArray(n) { readlnInt() }
-fun readlnLongArray(n: Int) = LongArray(n) { readlnLong() }
-fun readlnDoubleArray(n: Int) = DoubleArray(n) { readlnDouble() }
-fun readLongArray2d(rows: Int, cols: Int) = Array(rows) { readLongArray().also { require(it.size == cols) } }
-fun readIntArray2d(rows: Int, cols: Int) = Array(rows) { readIntArray().also { require(it.size == cols) } }
-fun readDoubleArray2d(rows: Int, cols: Int) = Array(rows) { readDoubleArray().also { require(it.size == cols) } }
-fun isWhiteSpace(c: Char) = c in " \r\n\t"
+private fun readln() = readLine()!!
+private fun readlnInt() = readln().toInt()
+private fun readlnLong() = readln().toLong()
+private fun readlnDouble() = readln().toDouble()
+private fun readlnBigInt(radix: Int = 10) = readln().toBigInteger(radix)
+private fun readlnBigDecimal() = readln().toBigDecimal()
+private fun lineSequence(limit: Int = Int.MAX_VALUE) = generateSequence { readLine() }.constrainOnce().take(limit)
+private fun readlnStrings() = readln().split(' ')
+private fun readlnInts() = readlnStrings().map { it.toInt() }
+private fun readlnLongs() = readlnStrings().map { it.toLong() }
+private fun readlnDoubles() = readlnStrings().map { it.toDouble() }
+private fun readIntArray() = readlnStrings().run { IntArray(size) { get(it).toInt() } }
+private fun readLongArray() = readlnStrings().run { LongArray(size) { get(it).toLong() } }
+private fun readDoubleArray() = readlnStrings().run { DoubleArray(size) { get(it).toDouble() } }
+private fun readlnIntArray(n: Int) = IntArray(n) { readlnInt() }
+private fun readlnLongArray(n: Int) = LongArray(n) { readlnLong() }
+private fun readlnDoubleArray(n: Int) = DoubleArray(n) { readlnDouble() }
+private fun readLongArray2d(rows: Int, cols: Int) = Array(rows) { readLongArray().also { require(it.size == cols) } }
+private fun readIntArray2d(rows: Int, cols: Int) = Array(rows) { readIntArray().also { require(it.size == cols) } }
+private fun readDoubleArray2d(rows: Int, cols: Int) = Array(rows) { readDoubleArray().also { require(it.size == cols) } }
+private fun isWhiteSpace(c: Char) = c in " \r\n\t"
 
 // JVM-only targeting code follows next
 // readString() via sequence is still slightly faster than Scanner
-fun readString() = generateSequence { System.`in`.read().toChar() }
+private fun readString() = generateSequence { System.`in`.read().toChar() }
     .dropWhile { isWhiteSpace(it) }.takeWhile { !isWhiteSpace(it) }.joinToString("")
-fun readInt() = readString().toInt()
-fun readLong() = readString().toLong()
-fun readDouble() = readString().toDouble()
-fun readBigInt(radix: Int = 10) = readString().toBigInteger(radix)
-fun readBigDecimal() = readString().toBigDecimal()
-fun readInts(n: Int) = generateSequence { readInt() }.take(n)
-fun readLongs(n: Int) = generateSequence { readLong() }.take(n)
-fun readDoubles(n: Int) = generateSequence { readDouble() }.take(n)
+private fun readInt() = readString().toInt()
+private fun readLong() = readString().toLong()
+private fun readDouble() = readString().toDouble()
+private fun readBigInt(radix: Int = 10) = readString().toBigInteger(radix)
+private fun readBigDecimal() = readString().toBigDecimal()
+private fun readInts(n: Int) = generateSequence { readInt() }.take(n)
+private fun readLongs(n: Int) = generateSequence { readLong() }.take(n)
+private fun readDoubles(n: Int) = generateSequence { readDouble() }.take(n)
 
 //Graphs
-fun dfs(size: Int, adjacencyList: List<List<List<Int>>>, v: Int = 0) {
+private fun dfs(size: Int, adjacencyList: List<List<List<Int>>>, v: Int = 0) {
     val searchOrder = ArrayList<Int>()
     val parent = IntArray(size) { -1 }
 
@@ -65,7 +64,7 @@ fun dfs(size: Int, adjacencyList: List<List<List<Int>>>, v: Int = 0) {
     dfs(v)
 }
 
-fun bfs(size: Int, adjacencyList: List<List<List<Int>>>, v: Int = 0) {
+private fun bfs(size: Int, adjacencyList: List<List<List<Int>>>, v: Int = 0) {
     val searchOrder: MutableList<Int> = java.util.ArrayList()
     val parent = IntArray(size) { -1 } // Initialize parent[i] to -1
     val queue = LinkedList<Int>() // list used as a queue
@@ -86,7 +85,7 @@ fun bfs(size: Int, adjacencyList: List<List<List<Int>>>, v: Int = 0) {
 
 }
 
-fun dijkstra(size: Int, adjacencyList: List<List<List<Int>>>, startingVertex: Int = 0) {
+private fun dijkstra(size: Int, adjacencyList: List<List<List<Int>>>, startingVertex: Int = 0) {
     val cost = DoubleArray(size) { Double.POSITIVE_INFINITY }
     cost[startingVertex] = 0.0 // Cost of source is 0
     val parent = IntArray(size) // Parent of a vertex
@@ -112,7 +111,7 @@ fun dijkstra(size: Int, adjacencyList: List<List<List<Int>>>, startingVertex: In
     }
 }
 
-fun floydWarshall(adjacencyMatrix: Array<DoubleArray>): Array<DoubleArray> {
+private fun floydWarshall(adjacencyMatrix: Array<DoubleArray>): Array<DoubleArray> {
 
     val distance = adjacencyMatrix
     val size = distance.size
@@ -127,7 +126,7 @@ fun floydWarshall(adjacencyMatrix: Array<DoubleArray>): Array<DoubleArray> {
     return distance
 }
 
-fun bellmanFord(graph: Array<IntArray>, V: Int, E: Int, src: Int) {
+private fun bellmanFord(graph: Array<IntArray>, V: Int, E: Int, src: Int) {
     // Initialize distance of all vertices as infinite.
     val dis = IntArray(V) { Int.MAX_VALUE }
 
@@ -161,7 +160,7 @@ fun bellmanFord(graph: Array<IntArray>, V: Int, E: Int, src: Int) {
 }
 
 //Primes
-fun Int.isPrime(): Boolean {
+private fun Int.isPrime(): Boolean {
     if (this < 2) return false
     var x = 2
     while (x * x <= this) {
@@ -171,7 +170,7 @@ fun Int.isPrime(): Boolean {
     return true
 }
 
-fun Int.primeFactors(): LinkedList<Int> {
+private fun Int.primeFactors(): LinkedList<Int> {
     var n = this
     val f = LinkedList<Int>()
     var x = 2
@@ -187,7 +186,7 @@ fun Int.primeFactors(): LinkedList<Int> {
 }
 
 //SegmentTree
-class SegmentTree(var array: IntArray) {
+private class SegmentTree(var array: IntArray) {
     private var minReady = false
     private var maxReady = false
     private lateinit var minTree: IntArray
@@ -311,7 +310,7 @@ class SegmentTree(var array: IntArray) {
 }
 
 //StaticArrayQueries
-class StaticArrayQueries(val array: IntArray) {
+private class StaticArrayQueries(val array: IntArray) {
     private var sumReady = false
     private var minReady = false
     private var maxReady = false
@@ -402,7 +401,7 @@ class StaticArrayQueries(val array: IntArray) {
 }
 
 //SlidingWindow
-fun slidingWindowMin(array: IntArray, slidingWindowSize: Int): IntArray {
+private fun slidingWindowMin(array: IntArray, slidingWindowSize: Int): IntArray {
     if (slidingWindowSize >= array.size) return IntArray(1) { Collections.min(array.toList()) }
     val ans = IntArray(array.size - slidingWindowSize + 1)
     val queue = LinkedList<Pair<Int, Int>>()
@@ -433,7 +432,7 @@ fun slidingWindowMin(array: IntArray, slidingWindowSize: Int): IntArray {
 }
 
 //NearestSmallerElements
-fun nearestSmallerElements(array: IntArray): Array<Pair<Int, Int>?> {
+private fun nearestSmallerElements(array: IntArray): Array<Pair<Int, Int>?> {
     val ans = Array<Pair<Int, Int>?>(array.size) { null }
     val stack = Stack<Pair<Int, Int>>()
     stack.add(Pair(0, array[0]))
@@ -450,7 +449,7 @@ fun nearestSmallerElements(array: IntArray): Array<Pair<Int, Int>?> {
 }
 
 //BinaryIndexedTree
-class BinaryIndexedTree(var array: IntArray) {
+private class BinaryIndexedTree(var array: IntArray) {
     private val sumIndexedTree = IntArray(array.size + 1)
 
     init {

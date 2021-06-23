@@ -1,9 +1,11 @@
 package A;
 
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class UVA10110 {
     public static void main(String[] args) {
+        Comparator.comparing()
         Scanner scan=new Scanner(System.in);
         int n=scan.nextInt();
         while (n!=0){

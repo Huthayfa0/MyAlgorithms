@@ -1,4 +1,4 @@
-
+/*
 fun main() {
 //val x=convert("ABC",2)
     println(-((1 shl 31)+1))
@@ -42,3 +42,4 @@ fun plusOne(digits: IntArray): IntArray {
 
     return digits
 }
+*/
