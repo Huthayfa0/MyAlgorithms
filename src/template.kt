@@ -1,4 +1,3 @@
-import arrayQuieres.SlidingWindow
 import java.util.*
 import kotlin.math.*
 
@@ -155,8 +154,7 @@ private fun bellmanFord(graph: Array<IntArray>, V: Int, E: Int, src: Int) {
         val weight = graph[i][2]
         if (dis[x] != Int.MAX_VALUE && dis[x] + weight < dis[y]) println("Graph contains negative weight cycle")
     }
-    println("Vertex Distance from Source")
-    for (i in 0 until V) println("$i\t\t${dis[i]}")
+
 }
 
 //Primes
@@ -184,7 +182,7 @@ private fun Int.primeFactors(): LinkedList<Int> {
     if (n > 1) f.addLast(n)
     return f
 }
-
+/*
 //SegmentTree
 private class SegmentTree(var array: IntArray) {
     private var minReady = false
@@ -399,7 +397,7 @@ private class StaticArrayQueries(val array: IntArray) {
         }
     }
 }
-
+*/
 //SlidingWindow
 private fun slidingWindowMin(array: IntArray, slidingWindowSize: Int): IntArray {
     if (slidingWindowSize >= array.size) return IntArray(1) { Collections.min(array.toList()) }
@@ -447,7 +445,7 @@ private fun nearestSmallerElements(array: IntArray): Array<Pair<Int, Int>?> {
     }
     return ans
 }
-
+/*
 //BinaryIndexedTree
 private class BinaryIndexedTree(var array: IntArray) {
     private val sumIndexedTree = IntArray(array.size + 1)
@@ -493,4 +491,4 @@ private class BinaryIndexedTree(var array: IntArray) {
     }
 
 }
-
+*/
