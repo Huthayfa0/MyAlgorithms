@@ -2,9 +2,30 @@ import java.util.*
 import kotlin.math.*
 
 fun main() {
+    val n=readlnInt()
+    val ints= readlnInts()
+    val sortedInts=mergeSort(ints)
+    val arr=LongArray(n)
+    val sortedArr=LongArray(n)
+    arr[0]=ints[0].toLong()
+    sortedArr[0]=sortedInts[0].toLong()
+    for (i in 1 until n){
+        arr[i]+=arr[i-1]+ints[i]
+        sortedArr[i]+=sortedArr[i-1]+sortedInts[i]
+    }
+    val t=readlnInt()
+    repeat(t){
+        var (type,l,r)=readlnInts()
+        r--
+        l--
+        println(when(type){
+            1-> if (l==0)arr[r] else arr[r]-arr[l-1]
+            2-> if (l==0)sortedArr[r] else sortedArr[r]-sortedArr[l-1]
+            else -> ""
+        })
+    }
 
 }
-
 private fun mergeSort(list: List<Int>): List<Int> {
     fun merge(left: List<Int>, right: List<Int>): List<Int>  {
         var indexLeft = 0
@@ -63,13 +84,16 @@ private fun readlnLongArray(n: Int) = LongArray(n) { readlnLong() }
 private fun readlnDoubleArray(n: Int) = DoubleArray(n) { readlnDouble() }
 private fun readLongArray2d(rows: Int, cols: Int) = Array(rows) { readLongArray().also { require(it.size == cols) } }
 private fun readIntArray2d(rows: Int, cols: Int) = Array(rows) { readIntArray().also { require(it.size == cols) } }
-private fun readDoubleArray2d(rows: Int, cols: Int) = Array(rows) { readDoubleArray().also { require(it.size == cols) } }
+private fun readDoubleArray2d(rows: Int, cols: Int) =
+    Array(rows) { readDoubleArray().also { require(it.size == cols) } }
+
 private fun isWhiteSpace(c: Char) = c in " \r\n\t"
 
 // JVM-only targeting code follows next
 // readString() via sequence is still slightly faster than Scanner
 private fun readString() = generateSequence { System.`in`.read().toChar() }
     .dropWhile { isWhiteSpace(it) }.takeWhile { !isWhiteSpace(it) }.joinToString("")
+
 private fun readInt() = readString().toInt()
 private fun readLong() = readString().toLong()
 private fun readDouble() = readString().toDouble()
@@ -220,6 +244,7 @@ private fun Int.primeFactors(): LinkedList<Int> {
     if (n > 1) f.addLast(n)
     return f
 }
+
 /*
 //SegmentTree
 private class SegmentTree(var array: IntArray) {
