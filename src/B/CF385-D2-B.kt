@@ -5,10 +5,19 @@ import kotlin.math.*
 fun main() {
     val str=readln()
     val set=ArrayList<Int>()
-    for (i in 0 until str.length-3)
+    val n=str.length-3
+    for (i in 0 until n)
         if (str[i]=='b'&&str[i+1]=='e'&&str[i+2]=='a'&&str[i+3]=='r')
             set.add(i)
 
+    var sum=0
+    if (set.size>0){
+        sum+=(n-set[0])*(set[0]+1)
+        for (i in 1 until set.size){
+            sum+=(n-set[i])*(set[i]-set[i-1])
+        }
+    }
+    println(sum)
 }
 
 private fun mergeSort(list: List<Int>): List<Int> {
