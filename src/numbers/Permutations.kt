@@ -5,7 +5,7 @@ import kotlin.collections.ArrayList
 
 /**
  * iterates on n elements
- * if n=3 , f=  println(it.joinToString())
+ * if n=3 ,m=3 , f=  println(it.joinToString())
  * 0 1 2
  * 0 2 1
  * 1 0 2
