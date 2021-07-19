@@ -28,7 +28,7 @@ private fun BSfindLast(start: Int, end: Int, x: Int,f:(Int)->Int): Int {
     return s
 }
 
-fun binary( start:Double, end:Double,can:(Double)->Boolean):Double{
+private fun binary( start:Double, end:Double,can:(Double)->Boolean):Double{
     var s=start
     var e=end
     repeat(100){
@@ -40,4 +40,26 @@ fun binary( start:Double, end:Double,can:(Double)->Boolean):Double{
         return s
 
     return -1.0	// failed
+}
+
+private fun BSfindFirstTrue(start: Int, end: Int, f:(Int)->Boolean): Int {
+    var s = start
+    var e = end
+    while (s < e) {
+        val mid = s + (e - s) / 2
+        if (f(mid)) e = mid
+        else s = mid+1
+    }
+    return s
+}
+
+private fun BSfindLastFalse(start: Int, end: Int, f:(Int)->Boolean): Int {
+    var s = start
+    var e = end
+    while (s < e) {
+        val mid = s + (e - s) / 2
+        if (f(mid)) e = mid-1
+        else s = mid
+    }
+    return s
 }
