@@ -224,3 +224,124 @@ private fun Int.primeFactors(): LinkedList<Int> {
     return f
 }
 
+//Permutations
+private fun permutationsIteration(n:Int,m:Int=n,f:(LinkedList<out Int>)->Unit){
+    val list= LinkedList<Int>()
+    var count=0
+    val visited=BooleanArray(n)
+
+    fun getPerm(i:Int=0){
+        if (i==m){
+            f(list)
+            count++
+            return
+        }
+        for (j in 0 until n){
+            if (visited[j])
+                continue
+            list.add(j)
+            visited[j]=true
+            getPerm(i+1)
+            visited[j]=false
+            list.removeLast()
+        }
+    }
+
+    getPerm()
+}
+
+//combinations
+private fun combinationsIteration(n:Int, m:Int, f:(LinkedList<out Int>)->Unit){
+    val list= LinkedList<Int>()
+    var count=0
+
+    fun getCombination(i:Int=0,lastVal:Int=0){
+        if (i==m){
+            f(list)
+            count++
+            return
+        }
+        for (j in lastVal until n){
+            list.add(j)
+            getCombination(i+1,j+1)
+            list.removeLast()
+        }
+    }
+    getCombination()
+}
+
+fun getCombinationCountArray(n:Int,m:Int){
+    require(n>=m)
+    val arr=Array(m+1){LongArray(n+1)}
+    for (i in 0 until m+1)
+        for (j in 0 until n+1)
+            arr[i][j]=when{
+                j==0->1
+                i==0->0
+                else-> arr[i-1][j-1]+arr[i-1][j]
+            }
+
+}
+
+//Search Techs
+
+private fun BSfindFirst(start: Int, end: Int, x: Int,f:(Int)->Int): Int {
+    var s = start
+    var e = end
+    while (s < e) {
+        val mid = s + (e - s) / 2
+        if (f(mid) < x) s = mid + 1
+        else if (f(mid) > x) e = mid - 1
+        else e = mid
+    }
+    return s
+}
+
+private fun BSfindLast(start: Int, end: Int, x: Int,f:(Int)->Int): Int {
+    var s = start
+    var e = end
+    while (s < e) {
+        val mid = s + (e - s) / 2
+        if (f(mid) < x) s = mid + 1
+        else if (f(mid) > x) e = mid - 1
+        else s = mid
+    }
+    return s
+}
+
+private fun binary( start:Double, end:Double,can:(Double)->Boolean):Double{
+    var s=start
+    var e=end
+    repeat(100){
+        val mid = (s + e) / 2
+        if (can(mid)) e = mid else s = mid
+    }
+
+    if( can(e) )
+        return s
+
+    return -1.0	// failed
+}
+
+private fun BSfindFirstTrue(start: Int, end: Int, f:(Int)->Boolean): Int {
+    var s = start
+    var e = end
+    while (s < e) {
+        val mid = s + (e - s) / 2
+        if (f(mid)) e = mid
+        else s = mid+1
+    }
+    return s
+}
+
+private fun BSfindLastFalse(start: Int, end: Int, f:(Int)->Boolean): Int {
+    var s = start
+    var e = end
+    while (s < e) {
+        val mid = s + (e - s) / 2
+        if (f(mid)) e = mid-1
+        else s = mid
+    }
+    return s
+}
+
