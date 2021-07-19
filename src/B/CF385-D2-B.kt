@@ -1,26 +1,14 @@
 import java.util.*
+import kotlin.collections.HashSet
 import kotlin.math.*
 
 fun main() {
-    var (n,k)=readlnInts()
-    val arr=readIntArray()
-    var i=0
-    while (i<n&&arr[i]<0&&k!=0){
-        arr[i++]*=-1
-        k--
-    }
+    val str=readln()
+    val set=ArrayList<Int>()
+    for (i in 0 until str.length-3)
+        if (str[i]=='b'&&str[i+1]=='e'&&str[i+2]=='a'&&str[i+3]=='r')
+            set.add(i)
 
-    if (k>0&&(k and 1)!=0){
-        if (i==0)
-            arr[i]*=-1
-        else if (i==n)
-            arr[i-1]*=-1
-        else if (arr[i]<arr[i-1]){
-            arr[i]*=-1
-        }else
-            arr[i-1]*=-1
-    }
-    println(arr.sum())
 }
 
 private fun mergeSort(list: List<Int>): List<Int> {
