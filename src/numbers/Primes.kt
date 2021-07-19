@@ -1,7 +1,6 @@
-package Numbers
+package numbers
 
 import java.util.*
-import kotlin.collections.ArrayList
 
 class Primes {
     fun prime(n: Int): Boolean {
