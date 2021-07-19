@@ -39,5 +39,5 @@ fun binary( start:Double, end:Double,can:(Double)->Boolean):Double{
     if( can(e) )
         return s
 
-    return -1.0;	// failed
+    return -1.0	// failed
 }
