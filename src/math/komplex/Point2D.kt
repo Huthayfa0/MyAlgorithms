@@ -18,18 +18,12 @@ fun reflect(p:Complex, p0:Complex, p1:Complex):Complex {
     val w = p1-p0
     return (z/w).conjugate()*w + p0 // Refelect point p1 around p0p1
 }
-
 fun fixAngle(A:Double): Double =if(A > 1) 1.0 else if (A < -1) -1.0 else A
-
-// return min angle: aOb / bOa
-// dp(v1, v2) = |v1|*|v2|*cos(theta)
 fun angleO( a:Complex, O:Complex, b:Complex):Complex {
     val v1=(a - O)
     val v2=(b - O)
-
     return Complex.fromPolar(1.0, acos(fixAngle ( dotProduct(v1, v2) / v1.length() / v2.length() )) )
 }
-
 fun getAng(a:Complex, b:Complex, c:Complex):Double {
     var ang =  vec(b, c).angle() -  vec(b, a).angle()
     if(ang< 0)
