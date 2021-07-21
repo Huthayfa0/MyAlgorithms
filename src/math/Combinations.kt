@@ -1,4 +1,4 @@
-package numbers
+package math
 
 import java.util.*
 

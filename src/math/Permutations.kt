@@ -1,7 +1,6 @@
-package numbers
+package math
 
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * iterates on n elements
