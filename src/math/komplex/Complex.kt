@@ -8,7 +8,7 @@ fun isEven(i: Int) = i % 2 == 0
 /**
  * Complex unit = 0 + i
  */
-val i = Complex(0.0, 1.0)
+val img = Complex(0.0, 1.0)
 
 /**
  * Complex norm
@@ -46,12 +46,12 @@ fun coth(c: Complex) = cosh(c) / sinh(c)
 /**
  * Complex cosine
  */
-fun cos(c: Complex) = (exp(i * c) + exp(-i * c)) / 2.0
+fun cos(c: Complex) = (exp(img * c) + exp(-img * c)) / 2.0
 
 /**
  * Complex sine
  */
-fun sin(c: Complex) = i * (exp(-i * c) - exp(i * c)) / 2.0
+fun sin(c: Complex) = img * (exp(-img * c) - exp(img * c)) / 2.0
 
 /**
  * Complex tangent
@@ -77,7 +77,7 @@ fun ln(c: Complex) = Complex(ln(c.abs()), c.phase())
  * Roots of unity
  */
 fun roots(n: Int) =
-    (1 ..n).map { exp(i*2*PI*it/n) }
+    (1 ..n).map { exp(img*2*PI*it/n) }
 
 operator fun Number.plus(c: Complex) = Complex(this.toDouble() + c.real, c.img)
 
@@ -174,7 +174,7 @@ class Complex(val real: Double, val img: Double) {
 
         fun fromNumber(n: Number) = Complex(n.toDouble(), 0.0)
 
-        fun fromPolar(radius: Double, theta: Double) :Complex  =radius*exp(i*theta)
+        fun fromPolar(radius: Double, theta: Double) :Complex  =radius*exp(img*theta)
 
     }
 
