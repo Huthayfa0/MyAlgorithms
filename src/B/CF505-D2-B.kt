@@ -1,8 +1,21 @@
 import java.util.*
+import kotlin.collections.HashSet
 import kotlin.math.*
 
 fun main() {
-
+    val (n,m)=readlnInts()
+    val adjacencyMatrix=Array(n) { Array(n) { HashSet<Int>() } }
+    repeat(m){
+        val (a,b,c)=readlnInts().map { it-1 }
+        adjacencyMatrix[a][b].add(c)
+        adjacencyMatrix[b][a].add(c)
+    }
+    val t=readlnInt()
+    val sol=floydWarshall(adjacencyMatrix)
+    repeat(t){
+        val (a,b)=readlnInts().map { it-1 }
+        println(sol[a][b].size)
+    }
 }
 
 //Scanner code
@@ -25,13 +38,16 @@ private fun readlnLongArray(n: Int) = LongArray(n) { readlnLong() }
 private fun readlnDoubleArray(n: Int) = DoubleArray(n) { readlnDouble() }
 private fun readLongArray2d(rows: Int, cols: Int) = Array(rows) { readLongArray().also { require(it.size == cols) } }
 private fun readIntArray2d(rows: Int, cols: Int) = Array(rows) { readIntArray().also { require(it.size == cols) } }
-private fun readDoubleArray2d(rows: Int, cols: Int) = Array(rows) { readDoubleArray().also { require(it.size == cols) } }
+private fun readDoubleArray2d(rows: Int, cols: Int) =
+    Array(rows) { readDoubleArray().also { require(it.size == cols) } }
+
 private fun isWhiteSpace(c: Char) = c in " \r\n\t"
 
 // JVM-only targeting code follows next
 // readString() via sequence is still slightly faster than Scanner
 private fun readString() = generateSequence { System.`in`.read().toChar() }
     .dropWhile { isWhiteSpace(it) }.takeWhile { !isWhiteSpace(it) }.joinToString("")
+
 private fun readInt() = readString().toInt()
 private fun readLong() = readString().toLong()
 private fun readDouble() = readString().toDouble()
@@ -44,10 +60,10 @@ private fun readDoubles(n: Int) = generateSequence { readDouble() }.take(n)
 
 //sort
 private fun mergeSort(list: List<Int>): List<Int> {
-    fun merge(left: List<Int>, right: List<Int>): List<Int>  {
+    fun merge(left: List<Int>, right: List<Int>): List<Int> {
         var indexLeft = 0
         var indexRight = 0
-        val newList : MutableList<Int> = mutableListOf()
+        val newList: MutableList<Int> = mutableListOf()
 
         while (indexLeft < left.count() && indexRight < right.count()) {
             if (left[indexLeft] <= right[indexRight]) {
@@ -75,8 +91,8 @@ private fun mergeSort(list: List<Int>): List<Int> {
     }
 
     val middle = list.size / 2
-    val left = list.subList(0,middle)
-    val right = list.subList(middle,list.size)
+    val left = list.subList(0, middle)
+    val right = list.subList(middle, list.size)
 
     return merge(mergeSort(left), mergeSort(right))
 }
@@ -151,14 +167,14 @@ private fun dijkstra(size: Int, adjacencyList: List<List<List<Int>>>, startingVe
     }
 }
 
-private fun floydWarshall(adjacencyMatrix: Array<DoubleArray>): Array<DoubleArray> {
+private fun floydWarshall(adjacencyMatrix: Array<Array<HashSet<Int>>>): Array<Array<HashSet<Int>>> {
 
     val distance = adjacencyMatrix
     val size = distance.size
     for (k in 0 until size) {
         for (i in 0 until size) {
             for (j in 0 until size) {
-                distance[i][j] = java.lang.Double.min(distance[i][j], distance[i][k] + distance[k][j])
+                distance[i][j] = distance[i][j].union(distance[i][k].intersect(distance[k][j])) as HashSet<Int>
             }
         }
     }
@@ -225,24 +241,24 @@ private fun Int.primeFactors(): LinkedList<Int> {
 }
 
 //Permutations
-private fun permutationsIteration(n:Int,m:Int=n,f:(LinkedList<out Int>)->Unit){
-    val list= LinkedList<Int>()
-    var count=0
-    val visited=BooleanArray(n)
+private fun permutationsIteration(n: Int, m: Int = n, f: (LinkedList<out Int>) -> Unit) {
+    val list = LinkedList<Int>()
+    var count = 0
+    val visited = BooleanArray(n)
 
-    fun getPerm(i:Int=0){
-        if (i==m){
+    fun getPerm(i: Int = 0) {
+        if (i == m) {
             f(list)
             count++
             return
         }
-        for (j in 0 until n){
+        for (j in 0 until n) {
             if (visited[j])
                 continue
             list.add(j)
-            visited[j]=true
-            getPerm(i+1)
-            visited[j]=false
+            visited[j] = true
+            getPerm(i + 1)
+            visited[j] = false
             list.removeLast()
         }
     }
@@ -251,41 +267,41 @@ private fun permutationsIteration(n:Int,m:Int=n,f:(LinkedList<out Int>)->Unit){
 }
 
 //combinations
-private fun combinationsIteration(n:Int, m:Int, f:(LinkedList<out Int>)->Unit){
-    val list= LinkedList<Int>()
-    var count=0
+private fun combinationsIteration(n: Int, m: Int, f: (LinkedList<out Int>) -> Unit) {
+    val list = LinkedList<Int>()
+    var count = 0
 
-    fun getCombination(i:Int=0,lastVal:Int=0){
-        if (i==m){
+    fun getCombination(i: Int = 0, lastVal: Int = 0) {
+        if (i == m) {
             f(list)
             count++
             return
         }
-        for (j in lastVal until n){
+        for (j in lastVal until n) {
             list.add(j)
-            getCombination(i+1,j+1)
+            getCombination(i + 1, j + 1)
             list.removeLast()
         }
     }
     getCombination()
 }
 
-private fun getCombinationCountArray(n:Int,m:Int){
-    require(n>=m)
-    val arr=Array(m+1){LongArray(n+1)}
-    for (i in 0 until m+1)
-        for (j in 0 until n+1)
-            arr[i][j]=when{
-                j==0->1
-                i==0->0
-                else-> arr[i-1][j-1]+arr[i-1][j]
+private fun getCombinationCountArray(n: Int, m: Int) {
+    require(n >= m)
+    val arr = Array(m + 1) { LongArray(n + 1) }
+    for (i in 0 until m + 1)
+        for (j in 0 until n + 1)
+            arr[i][j] = when {
+                j == 0 -> 1
+                i == 0 -> 0
+                else -> arr[i - 1][j - 1] + arr[i - 1][j]
             }
 
 }
 
 //Search Techs
 
-private fun BSfindFirst(start: Int, end: Int, x: Int,f:(Int)->Int): Int {
+private fun BSfindFirst(start: Int, end: Int, x: Int, f: (Int) -> Int): Int {
     var s = start
     var e = end
     while (s < e) {
@@ -297,7 +313,7 @@ private fun BSfindFirst(start: Int, end: Int, x: Int,f:(Int)->Int): Int {
     return s
 }
 
-private fun BSfindLast(start: Int, end: Int, x: Int,f:(Int)->Int): Int {
+private fun BSfindLast(start: Int, end: Int, x: Int, f: (Int) -> Int): Int {
     var s = start
     var e = end
     while (s < e) {
@@ -309,37 +325,37 @@ private fun BSfindLast(start: Int, end: Int, x: Int,f:(Int)->Int): Int {
     return s
 }
 
-private fun binary( start:Double, end:Double,can:(Double)->Boolean):Double{
-    var s=start
-    var e=end
-    repeat(100){
+private fun binary(start: Double, end: Double, can: (Double) -> Boolean): Double {
+    var s = start
+    var e = end
+    repeat(100) {
         val mid = (s + e) / 2
         if (can(mid)) e = mid else s = mid
     }
 
-    if( can(e) )
+    if (can(e))
         return s
 
-    return -1.0	// failed
+    return -1.0    // failed
 }
 
-private fun BSfindFirstTrue(start: Int, end: Int, f:(Int)->Boolean): Int {
+private fun BSfindFirstTrue(start: Int, end: Int, f: (Int) -> Boolean): Int {
     var s = start
     var e = end
     while (s < e) {
         val mid = s + (e - s) / 2
         if (f(mid)) e = mid
-        else s = mid+1
+        else s = mid + 1
     }
     return s
 }
 
-private fun BSfindLastFalse(start: Int, end: Int, f:(Int)->Boolean): Int {
+private fun BSfindLastFalse(start: Int, end: Int, f: (Int) -> Boolean): Int {
     var s = start
     var e = end
     while (s < e) {
         val mid = s + (e - s) / 2
-        if (f(mid)) e = mid-1
+        if (f(mid)) e = mid - 1
         else s = mid
     }
     return s
@@ -410,7 +426,7 @@ private class Complex(val real: Double, val img: Double) {
         return when {
             isPracticallyZero(img) -> "${ real}"
             isPracticallyZero(real) -> "${ img}i"
-            img < 0 -> "${ real}-${ -img}i"
+            img < 0 -> "${ real}-${-img}i"
             else -> "${ real}+${ img}i"
         }
     }
@@ -490,11 +506,11 @@ fun getAng(a:Complex, b:Complex, c:Complex):Double {
 /*
 
 fun isCollinear(a: Complex, b: Complex, c: Complex): Boolean {
-    return (crossProduct(b - a, c - a)).isZero()
+    return (crossProduct(b - a, c - a)) ==0.0
 }
 
 fun isPointOnRay(p0: Complex, p1: Complex, p2: Complex): Boolean {
-    return if ((p2 - p0).length().isZero()) true else ((p1 - p0).normalize()== (p2 - p0).normalize())
+    return if ((p2 - p0).length() ==0.0) true else ((p1 - p0).normalize()== (p2 - p0).normalize())
 }
 
 fun isPointOnSegment(a: Complex, b: Complex, c: Complex): Boolean {
