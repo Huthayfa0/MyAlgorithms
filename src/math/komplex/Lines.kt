@@ -1,12 +1,13 @@
 package math.komplex
+import math.komplex.Complex.Companion.isZero
 import kotlin.math.*
 
 fun isCollinear(a: Complex, b: Complex, c: Complex): Boolean {
-    return (crossProduct(b - a, c - a)) ==0.0
+    return (crossProduct(b - a, c - a)).isZero()
 }
 
 fun isPointOnRay(p0: Complex, p1: Complex, p2: Complex): Boolean {
-    return if ((p2 - p0).length() ==0.0) true else ((p1 - p0).normalize()== (p2 - p0).normalize())
+    return if ((p2 - p0).length().isZero() ) true else ((p1 - p0).normalize()== (p2 - p0).normalize())
 }
 /*
 fun isPointOnRay(a: Complex, b: Complex, c: Complex): Boolean {    // not tested?

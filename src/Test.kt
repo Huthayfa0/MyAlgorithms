@@ -1,3 +1,6 @@
+import kotlin.math.atan
+import kotlin.math.sqrt
+
 /*
 fun main() {
 //val x=convert("ABC",2)
@@ -43,3 +46,7 @@ fun plusOne(digits: IntArray): IntArray {
     return digits
 }
 */
+fun main() {
+    val arr= arrayOf(IntRange(0,5))
+
+}

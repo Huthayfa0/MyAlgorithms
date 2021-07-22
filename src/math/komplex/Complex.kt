@@ -175,7 +175,7 @@ class Complex(val real: Double, val img: Double) {
         fun fromNumber(n: Number) = Complex(n.toDouble(), 0.0)
 
         fun fromPolar(radius: Double, theta: Double) :Complex  =radius*exp(img*theta)
-
+        fun Double.isZero(tolerance: Double= DEFAULT_TOLERANCE) = abs(this) < tolerance
     }
 
     /**
