@@ -105,7 +105,7 @@ private fun dfs(size: Int, adjacencyList: List<List<Int>>, v: Int = 0) {
 }
 
 private fun bfs(size: Int, adjacencyList: List<List<Int>>, v: Int = 0) {
-    val searchOrder: MutableList<Int> = java.util.ArrayList()
+    val searchOrder: MutableList<Int> = ArrayList()
     val parent = IntArray(size) { -1 } // Initialize parent[i] to -1
     val queue = LinkedList<Int>() // list used as a queue
     val isVisited = BooleanArray(size)
