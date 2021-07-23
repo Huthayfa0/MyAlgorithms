@@ -83,7 +83,7 @@ private fun mergeSort(list: List<Int>): List<Int> {
 
 
 //Graphs
-private fun dfs(size: Int, adjacencyList: List<List<List<Int>>>, v: Int = 0) {
+private fun dfs(size: Int, adjacencyList: List<List<Int>>, v: Int = 0) {
     val searchOrder = ArrayList<Int>()
     val parent = IntArray(size) { -1 }
 
@@ -92,11 +92,11 @@ private fun dfs(size: Int, adjacencyList: List<List<List<Int>>>, v: Int = 0) {
     fun dfs(v: Int) {
         // Store the visited vertex
         searchOrder.add(v)
-        isVisited[v] = true // Vertex v visited
-        adjacencyList[v].forEach { e -> // Note that e.u is v
-            if (!isVisited[e[1]]) { // e.v is w in Listing 28.8
-                parent[e[1]] = v // The parent of w is v
-                dfs(e[1]) // Recursive search
+        isVisited[v] = true
+        adjacencyList[v].forEach { e ->
+            if (!isVisited[e]) {
+                parent[e] = v
+                dfs(e)
             }
         }
     }
@@ -104,8 +104,8 @@ private fun dfs(size: Int, adjacencyList: List<List<List<Int>>>, v: Int = 0) {
     dfs(v)
 }
 
-private fun bfs(size: Int, adjacencyList: List<List<List<Int>>>, v: Int = 0) {
-    val searchOrder: MutableList<Int> = ArrayList()
+private fun bfs(size: Int, adjacencyList: List<List<Int>>, v: Int = 0) {
+    val searchOrder: MutableList<Int> = java.util.ArrayList()
     val parent = IntArray(size) { -1 } // Initialize parent[i] to -1
     val queue = LinkedList<Int>() // list used as a queue
     val isVisited = BooleanArray(size)
@@ -115,10 +115,10 @@ private fun bfs(size: Int, adjacencyList: List<List<List<Int>>>, v: Int = 0) {
         val u = queue.poll() // Dequeue to u
         searchOrder.add(u) // u searched
         adjacencyList[u].forEach { e -> // Note that e.u is u
-            if (!isVisited[e[1]]) { // e.v is w in Listing 28.11
-                queue.offer(e[1]) // Enqueue w
-                parent[e[1]] = u // The parent of w is u
-                isVisited[e[1]] = true // Mark w visited
+            if (!isVisited[e]) { // e.v is w in Listing 28.11
+                queue.offer(e) // Enqueue w
+                parent[e] = u // The parent of w is u
+                isVisited[e] = true // Mark w visited
             }
         }
     }
