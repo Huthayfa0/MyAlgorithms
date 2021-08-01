@@ -22,7 +22,7 @@ fun prim(size: Int, adjacencyList: List<List<List<Int>>>, startingVertex: Int = 
 
         // Adjust cost[v] for v that is adjacent to u and v in V - T
         for (e in adjacencyList[u]) {
-            val sum = e[2] + cost[u]
+            val sum = cost[u]
             if (!t.contains(e[1]) && cost[e[1]] > sum) {
                 cost[e[1]] = sum
                 parent[e[1]] = u
