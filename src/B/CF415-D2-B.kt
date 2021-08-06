@@ -2,8 +2,8 @@ import java.util.*
 import kotlin.math.*
 
 fun main() {
-val (_,a,b)=readlnInts()
-    println(readlnInts().map { it*a%b }.joinToString (separator = " "))
+val (_,a,b)=readlnLongs()
+    println(readlnLongs().map { ((it%b)*a%b)/a }.joinToString (separator = " "))
 }
 
 //Scanner code
