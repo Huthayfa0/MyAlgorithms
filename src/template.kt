@@ -43,6 +43,7 @@ private fun readDoubles(n: Int) = generateSequence { readDouble() }.take(n)
 
 
 //sort
+/*
 private fun mergeSort(list: List<Int>): List<Int> {
     fun merge(left: List<Int>, right: List<Int>): List<Int>  {
         var indexLeft = 0
@@ -80,9 +81,11 @@ private fun mergeSort(list: List<Int>): List<Int> {
 
     return merge(mergeSort(left), mergeSort(right))
 }
-
+*/
 
 //Graphs
+//First Search
+/*
 private fun dfs(size: Int, adjacencyList: List<List<Int>>, v: Int = 0) {
     val searchOrder = ArrayList<Int>()
     val parent = IntArray(size) { -1 }
@@ -124,7 +127,10 @@ private fun bfs(size: Int, adjacencyList: List<List<Int>>, v: Int = 0) {
     }
 
 }
+*/
 
+//Shoretest Path
+/*
 private fun dijkstra(size: Int, adjacencyList: List<List<List<Int>>>, startingVertex: Int = 0) {
     val cost = DoubleArray(size) { Double.POSITIVE_INFINITY }
     cost[startingVertex] = 0.0 // Cost of source is 0
@@ -197,7 +203,10 @@ private fun bellmanFord(graph: Array<IntArray>, V: Int, E: Int, src: Int) {
     }
 
 }
+*/
 
+//MST
+/*
 private fun prim(size: Int, adjacencyList: List<List<List<Int>>>, startingVertex: Int = 0) {
     val cost = DoubleArray(size) { Double.POSITIVE_INFINITY }
     cost[startingVertex] = 0.0 // Cost of source is 0
@@ -270,9 +279,10 @@ private fun kruskal(size: Int, edges: List<List<Int>>) {
     }
 
 }
-
+*/
 
 //Primes
+/*
 private fun Int.isPrime(): Boolean {
     if (this < 2) return false
     var x = 2
@@ -297,8 +307,10 @@ private fun Int.primeFactors(): LinkedList<Int> {
     if (n > 1) f.addLast(n)
     return f
 }
+*/
 
 //Permutations
+/*
 private fun permutationsIteration(n:Int,m:Int=n,f:(LinkedList<out Int>)->Unit){
     val list= LinkedList<Int>()
     var count=0
@@ -323,8 +335,10 @@ private fun permutationsIteration(n:Int,m:Int=n,f:(LinkedList<out Int>)->Unit){
 
     getPerm()
 }
+*/
 
 //combinations
+/*
 private fun combinationsIteration(n:Int, m:Int, f:(LinkedList<out Int>)->Unit){
     val list= LinkedList<Int>()
     var count=0
@@ -356,9 +370,9 @@ private fun getCombinationCountArray(n:Int,m:Int){
             }
 
 }
-
+*/
 //Search Techs
-
+/*
 private fun BSfindFirst(start: Int, end: Int, x: Int,f:(Int)->Int): Int {
     var s = start
     var e = end
@@ -418,7 +432,7 @@ private fun BSfindLastFalse(start: Int, end: Int, f:(Int)->Boolean): Int {
     }
     return s
 }
-
+*/
 //Complex
 /*
 private fun isEven(i: Int) = i % 2 == 0
