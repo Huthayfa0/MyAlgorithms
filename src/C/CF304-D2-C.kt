@@ -3,7 +3,14 @@ import java.util.*
 import kotlin.math.*
 
 fun main() {
-
+    val n=readlnInt()
+    if (n%2==0)
+        println(-1)
+    else{
+        println((0 until n).joinToString(separator = " "))
+        println("${(1 until n).joinToString(separator = " ")} 0")
+        println("${(1 until n step 2).joinToString(separator = " ")} ${(0 until n step 2).joinToString(separator = " ")}")
+    }
 }
 
 //Scanner code, if wanted to read from file just change the first
@@ -26,13 +33,16 @@ private fun readlnLongArray(n: Int) = LongArray(n) { readlnLong() }
 private fun readlnDoubleArray(n: Int) = DoubleArray(n) { readlnDouble() }
 private fun readLongArray2d(rows: Int, cols: Int) = Array(rows) { readLongArray().also { require(it.size == cols) } }
 private fun readIntArray2d(rows: Int, cols: Int) = Array(rows) { readIntArray().also { require(it.size == cols) } }
-private fun readDoubleArray2d(rows: Int, cols: Int) = Array(rows) { readDoubleArray().also { require(it.size == cols) } }
+private fun readDoubleArray2d(rows: Int, cols: Int) =
+    Array(rows) { readDoubleArray().also { require(it.size == cols) } }
+
 private fun isWhiteSpace(c: Char) = c in " \r\n\t"
 
 // JVM-only targeting code follows next
 // readString() via sequence is still slightly faster than Scanner
 private fun readString() = generateSequence { System.`in`.read().toChar() }
     .dropWhile { isWhiteSpace(it) }.takeWhile { !isWhiteSpace(it) }.joinToString("")
+
 private fun readInt() = readString().toInt()
 private fun readLong() = readString().toLong()
 private fun readDouble() = readString().toDouble()
