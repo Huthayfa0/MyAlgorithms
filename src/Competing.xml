@@ -24,7 +24,7 @@
       <option name="KOTLIN" value="true" />
     </context>
   </template>
-  <template name="Primes" value="private fun Int.isPrime(): Boolean {&#10;    if (this &lt; 2) return false&#10;    var x = 2&#10;    while (x * x &lt;= this) {&#10;        if (this % x == 0) return false&#10;        x++&#10;    }&#10;    return true&#10;}&#10;&#10;private fun Int.primeFactors(): LinkedList&lt;Int&gt; {&#10;    var n = this&#10;    val f = LinkedList&lt;Int&gt;()&#10;    var x = 2&#10;    while (x * x &lt;= n) {&#10;        while (n % x == 0) {&#10;            f.addLast(x)&#10;            n /= x&#10;        }&#10;        x++&#10;    }&#10;    if (n &gt; 1) f.addLast(n)&#10;    return f&#10;}&#10;" description="" toReformat="true" toShortenFQNames="true">
+  <template name="Primes" value="private fun Int.gcd(b: Int): Int {&#10;    return if (b == 0) this else b.gcd(this % b)&#10;}&#10;private fun Long.gcd(b: Long): Long {&#10;    return if (b == 0L) this else b.gcd(this % b)&#10;}&#10;private fun Int.isPrime(): Boolean {&#10;    if (this &lt; 2) return false&#10;    var x = 2&#10;    while (x * x &lt;= this) {&#10;        if (this % x == 0) return false&#10;        x++&#10;    }&#10;    return true&#10;}&#10;&#10;private fun Int.primeFactors(): LinkedList&lt;Int&gt; {&#10;    var n = this&#10;    val f = LinkedList&lt;Int&gt;()&#10;    var x = 2&#10;    while (x * x &lt;= n) {&#10;        while (n % x == 0) {&#10;            f.addLast(x)&#10;            n /= x&#10;        }&#10;        x++&#10;    }&#10;    if (n &gt; 1) f.addLast(n)&#10;    return f&#10;}&#10;" description="" toReformat="true" toShortenFQNames="true">
     <context>
       <option name="KOTLIN" value="true" />
     </context>
