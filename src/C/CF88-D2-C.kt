@@ -5,6 +5,21 @@ import kotlin.math.*
 //MinimumSpanningTree Primes Permutations
 //Combinations BinarySearchTechs ComplexAndGeometry 
 fun main() {
+/*
+ll a, b;
+    scanf("%lld%lld", &a, &b);
+ 
+    ll m = lcm(a, b);
+ 
+    ll x = m / a - 1, y = m / b - 1;
+ 
+    if (x < y)  x++;
+    else y++;
+ 
+    if (x == y) puts("Equal");
+    else if (x > y) puts("Dasha");
+    else puts("Masha");
+ */
     val (D,M)=readlnLongs()
     val l=D*M
     var x=0L
