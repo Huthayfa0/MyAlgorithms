@@ -24,25 +24,19 @@ int main() {
     FAST
     ll n;
     cin>>n;
-    vector<ll> arr(n);
-    lp(i,0,n) cin>>arr[i];
-    ll f=0,s=0;
-    bool x=true;
-    while (n-->0){
-        ll t=0;
-        if((arr.front())>(arr.back())){
-            t=(arr.front());
-            arr.erase(arr.begin());
+    string x;
+    cin>>x;
+    char c=x[0];
+    ll ans=0;
+    lp(i,1,n){
+        if(x[i]==c){
+            ans++;
+
         }else{
-            t=(arr.back());
-            arr.pop_back();
+            c=x[i];
         }
-        if(x){
-            f+=t;
-        }else s+=t;
-        x=!x;
     }
-    cout<<f<<" "<<s<<endl;
+    cout<<ans<<endl;
     return 0;
 }
 
