@@ -23,22 +23,22 @@ typedef long long ll;
 
 int main() {
     FAST
-    ll n;
-    cin>>n;
+    ll n,b,d;
+    cin>>n>>b>>d;
     vector<ll> arr(n);
     lp(i,0,n) cin>>arr[i];
-    ll c;
-    cin>>c;
-    ll x,y;
-    lp(i,0,c){
-        cin>>x>>y;
-        if(x!=1)
-            arr[x-2]+=y-1;
-        if(x!=n)
-            arr[x]+=arr[x-1]-y;
-        arr[x-1]=0;
+    ll sum=0;
+    ll count=0;
+    lp(i,0,n){
+        if(arr[i]>b)
+            continue;
+        sum+=arr[i];
+        if(sum>d) {
+            sum = 0;
+            count++;
+        }
     }
-    lp(i,0,n) cout<<arr[i]<<endl;
+    cout<<count<<endl;
     return 0;
 }
 
