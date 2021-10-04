@@ -38,14 +38,11 @@ int main() {
     cin>>x;
     ll i=0;
     ll n=x.length();
-    while (i<n){
-        if(x[i]=='9') {
-            i++;
-            cout<<'9';
-        }
-        else
-            break;
+    if(x[i]=='9') {
+        i++;
+        cout<<'9';
     }
+
     while (i<n){
         if(x[i]>'4'){
             cout<<(char)(9-x[i]+2*'0');
