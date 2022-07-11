@@ -41,26 +41,9 @@ void chmax(ll&a,ll b){if(a<b)a=b;}
 
 void solve(){
     ll n;cin>>n;
-    VL ans;
-    switch(n){
-        case 1: ans={1};break;
-        case 2: ans={1,2};break;
-        case 3: ans={1,1,3};break;
-        default:
-            ll x=1;
-            while(n!=0) {
-                lp(i, 0, n - n / 2)ans.pb(x);
-                n>>=1;
-                x<<=1;
-                if(n==3){
-                    ans.pb(x);
-                    ans.pb(x);
-                    ans.pb(3*x);
-                    break;
-                }
-            }
-    }
-    out(i,ans);
+    string x;cin>>x;
+    sort(x.begin(),x.end());
+    cout<<x<<endl;
 }
 
 int main(){
